@@ -1,0 +1,4 @@
+pedido_id,canal,sku,kg_reservado,estado
+WEB-101,web,PECH-001,2.5,DESPACHADO
+WA-201,whatsapp,PECH-001,1.5,CANCELADO
+WEB-102,web,PECH-001,10.0,DESPACHADO

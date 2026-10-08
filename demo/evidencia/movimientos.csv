@@ -1,0 +1,11 @@
+mov_id,tipo,sku,lote_id,delta_fisico,delta_reservado,delta_bloqueado,unidad,canal,pedido_id,responsable,momento,clave_unica,ref_mov_id,detalle
+MOV-39F587FF,RECEPCION,PECH-001,L-2026-1007,20.0,0.0,0.0,kg,bascula_recepcion,,auxiliar_recepcion,2026-10-08T14:59:30,CAP-0001,,bruto=21.62 tara=1.62 neto=20.0 proveedor=Proveedor A (ficticio)
+MOV-8294BE90,RESERVA,PECH-001,,0.0,2.5,0.0,kg,web,WEB-101,sistema_web,2026-10-08T14:59:30,RES-WEB-101,,
+MOV-D1CC48A1,RESERVA,PECH-001,,0.0,1.5,0.0,kg,whatsapp,WA-201,asesor_whatsapp,2026-10-08T14:59:30,RES-WA-201,,
+MOV-4DB79C18,BLOQUEO,PECH-001,L-2026-1007,0.0,0.0,1.0,kg,admin,,administradora,2026-10-08T14:59:30,,,empaque dañado en revisión (ficticio)
+MOV-A59299C8,RESERVA,PECH-001,,0.0,10.0,0.0,kg,web,WEB-102,web,2026-10-08T14:59:30,RES-WEB-102,,
+MOV-5D326582,SALIDA,PECH-001,,-2.58,-2.5,0.0,kg,web,WEB-101,alistador,2026-10-08T14:59:30,SAL-WEB-101,,"reservado=2.5 real=2.58 cobro=46,440 COP"
+MOV-7B50E444,SALIDA,PECH-001,,-11.2,-10.0,0.0,kg,web,WEB-102,alistador,2026-10-08T14:59:30,SAL-WEB-102,,"reservado=10.0 real=11.2 cobro=201,600 COP"
+MOV-9E3919F2,LIBERACION,PECH-001,,0.0,-1.5,0.0,kg,whatsapp,WA-201,asesor_whatsapp,2026-10-08T14:59:30,LIB-WA-201,,
+MOV-FB21ED04,MERMA,PECH-001,L-2026-1007,-1.0,0.0,-1.0,kg,admin,,administradora,2026-10-08T14:59:30,,,empaque dañado descartado (ficticio)
+MOV-C2520D39,AJUSTE,PECH-001,L-2026-1007,-0.2,0.0,0.0,kg,admin,,administradora,2026-10-08T14:59:30,,MOV-39F587FF,motivo=tara mal configurada; neto 20.0 -> 19.8

@@ -1,0 +1,102 @@
+DEMO CHICKENMART - DATOS FICTICIOS - prototipo académico, no es un sistema instalado
+  Producto ficticio: PECH-001, precio 18.000 COP/kg, mínimo SUPUESTO 8 kg, aviso venc. SUPUESTO 2 días
+
+==============================================================================
+1. A1 Recepción: lecturas FICTICIAS de la báscula -> peso estable -> tara -> confirmación
+==============================================================================
+  Lecturas (kg, estable): (12.4, False), (20.95, False), (21.7, True), (21.58, True), (21.62, True), (21.62, True), (21.62, True), (21.62, True)
+  Peso bruto estable: 21.62 kg (se guarda 1 valor, no las 8 lecturas)
+  Entrada: {'captura_id': 'CAP-0001', 'sku': 'PECH-001', 'proveedor': 'Proveedor A (ficticio)', 'lote_id': 'L-2026-1007', 'vencimiento': '2026-10-10', 'bruto_kg': 21.62, 'tara_kg': 1.62, 'responsable': 'auxiliar_recepcion', 'confirmado_por_persona': True}
+  Movimiento creado: MOV-39F587FF (neto = 21.62 - 1.62 = 20.00 kg)
+  Saldo PECH-001: físico=20.00 kg | reservado=0.00 kg | bloqueado=0.00 kg | VENDIBLE=20.00 kg
+  Esperado: físico=20.0 reservado=0.0 bloqueado=0.0 vendible=20.0  -> OK
+
+==============================================================================
+2. Control: la cola offline reenvía la misma captura (reintento) -> no duplica
+==============================================================================
+  [rechazado] reenvío de CAP-0001: Captura CAP-0001 ya registrada: se ignora el duplicado
+  [rechazado] tara mayor que el bruto: Tara inválida (25.0 kg) para bruto 21.62 kg: revisar
+  [rechazado] recepción sin confirmación humana: La recepción requiere confirmación humana (producto, estado, proveedor)
+  Saldo PECH-001: físico=20.00 kg | reservado=0.00 kg | bloqueado=0.00 kg | VENDIBLE=20.00 kg
+  Esperado: físico=20.0 reservado=0.0 bloqueado=0.0 vendible=20.0  -> OK
+
+==============================================================================
+3. A2 Reservas: web 2,5 kg + WhatsApp 1,5 kg + bloqueo 1 kg -> 15 kg vendibles
+==============================================================================
+  Saldo PECH-001: físico=20.00 kg | reservado=4.00 kg | bloqueado=1.00 kg | VENDIBLE=15.00 kg
+  Esperado: físico=20.0 reservado=4.0 bloqueado=1.0 vendible=15.0  -> OK
+
+==============================================================================
+4. Caja pide 16 kg con 15 vendibles -> se rechaza y se ofrece ajustar
+==============================================================================
+  [rechazado] caja reserva 16 kg: Solicitado 16 kg > vendible 15.0 kg. Ofrecer ajustar a 15.0 kg o escalar al equipo
+  Saldo PECH-001: físico=20.00 kg | reservado=4.00 kg | bloqueado=1.00 kg | VENDIBLE=15.00 kg
+  Esperado: físico=20.0 reservado=4.0 bloqueado=1.0 vendible=15.0  -> OK
+
+==============================================================================
+5. Ventas simultáneas: web y WhatsApp piden 10 kg cada uno AL MISMO TIEMPO
+==============================================================================
+  WEB-102: reservado
+  WA-202: rechazado -> Solicitado 10 kg > vendible 5.0 kg. Ofrecer ajustar a 5.0 kg o escalar al equipo
+  Solo 1 reserva aceptada: el mismo saldo no se compromete dos veces
+  Saldo PECH-001: físico=20.00 kg | reservado=14.00 kg | bloqueado=1.00 kg | VENDIBLE=5.00 kg
+  Esperado: físico=20.0 reservado=14.0 bloqueado=1.0 vendible=5.0  -> OK
+
+==============================================================================
+6. Despacho WEB-101: reservado 2,5 kg, peso real 2,58 kg (dentro de ±5 % SUPUESTO)
+==============================================================================
+  Un solo movimiento SALIDA: físico -2,58 y reservado -2,5 (no hay doble descuento)
+  Saldo PECH-001: físico=17.42 kg | reservado=11.50 kg | bloqueado=1.00 kg | VENDIBLE=4.92 kg
+  Esperado: físico=17.42 reservado=11.5 bloqueado=1.0 vendible=4.92  -> OK
+
+==============================================================================
+7. Despacho WEB-102: reservado 10 kg, peso real 11,2 kg (+12 %) -> validar con cliente
+==============================================================================
+  [rechazado] despacho sin aceptación del cliente: Peso real 11.2 kg difiere 12% de lo reservado (10.0 kg): confirmar nuevo precio con el cliente antes de despachar
+  Pedido queda PENDIENTE_CLIENTE. Cliente acepta el nuevo valor (11,2 kg x 18.000 = 201.600 COP)
+  Saldo PECH-001: físico=6.22 kg | reservado=1.50 kg | bloqueado=1.00 kg | VENDIBLE=3.72 kg
+  Esperado: físico=6.22 reservado=1.5 bloqueado=1.0 vendible=3.72  -> OK
+
+==============================================================================
+8. Cancelación WA-201 -> se libera la reserva
+==============================================================================
+  [rechazado] cancelar WA-201 otra vez: Pedido WA-201 en estado CANCELADO: no hay reserva que liberar
+  Saldo PECH-001: físico=6.22 kg | reservado=0.00 kg | bloqueado=1.00 kg | VENDIBLE=5.22 kg
+  Esperado: físico=6.22 reservado=0.0 bloqueado=1.0 vendible=5.22  -> OK
+
+==============================================================================
+9. Merma: el kg bloqueado se descarta y se registra (toda merma queda en el libro)
+==============================================================================
+  Saldo PECH-001: físico=5.22 kg | reservado=0.00 kg | bloqueado=0.00 kg | VENDIBLE=5.22 kg
+  Esperado: físico=5.22 reservado=0.0 bloqueado=0.0 vendible=5.22  -> OK
+
+==============================================================================
+10. Corrección autorizada: la tara real era 1,82 kg -> neto 19,80 kg
+==============================================================================
+  [rechazado] auxiliar intenta corregir: Rol 'auxiliar' no autorizado para corregir recepciones
+  [aceptado] administradora corrige
+  El movimiento original NO se borra: se agrega un AJUSTE que lo referencia (trazabilidad)
+  Saldo PECH-001: físico=5.02 kg | reservado=0.00 kg | bloqueado=0.00 kg | VENDIBLE=5.02 kg
+  Esperado: físico=5.02 reservado=0.0 bloqueado=0.0 vendible=5.02  -> OK
+
+==============================================================================
+11. A3 Alertas por reglas (fecha de evaluación ficticia: 2026-10-08)
+==============================================================================
+  ALR-846136 [ALTA] MINIMO: Pechuga de pollo (ficticio): vendible 5.02 kg < mínimo 8.0 kg (SUPUESTO) -> administradora
+  ALR-8346BE [MEDIA] VENCIMIENTO: Pechuga de pollo (ficticio) lote L-2026-1007 vence en 2 día(s) -> administradora
+  Segunda evaluación: 0 alertas nuevas (no se duplican mientras sigan abiertas)
+  ALR-846136 marcada ATENDIDA (sirve para el indicador 'alertas atendidas / tiempo de respuesta')
+
+==============================================================================
+12. Exportación para Orozco (Data Hub / Power BI)
+==============================================================================
+  demo/evidencia/movimientos.csv (10 filas)
+  demo/evidencia/pedidos.csv (3 filas)
+  demo/evidencia/alertas.csv (2 filas)
+  demo/evidencia/lotes.csv (1 filas)
+  demo/evidencia/productos.csv (1 filas)
+  demo/evidencia/esquema.sql
+
+RESULTADO: todos los pasos coinciden con la salida esperada.
+LIMITACIONES: datos ficticios; sin báscula, web, caja ni WhatsApp reales; SQLite local en vez de
+un servidor; sin autenticación real (los roles se pasan como texto); umbrales y tolerancias SUPUESTOS.

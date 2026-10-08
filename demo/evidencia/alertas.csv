@@ -1,0 +1,3 @@
+alerta_id,regla,sku,lote_id,mensaje,destinatario,prioridad,responsable,estado,creada,atendida
+ALR-846136,MINIMO,PECH-001,,Pechuga de pollo (ficticio): vendible 5.02 kg < mínimo 8.0 kg (SUPUESTO),administradora,ALTA,responsable de inventario,ATENDIDA,2026-10-08T14:59:30,2026-10-08T14:59:30
+ALR-8346BE,VENCIMIENTO,PECH-001,L-2026-1007,Pechuga de pollo (ficticio) lote L-2026-1007 vence en 2 día(s),administradora,MEDIA,responsable de inventario,ABIERTA,2026-10-08T14:59:30,
