@@ -37,7 +37,7 @@ Si hay más contenido que tiempo, no se eliminan criterios de la rúbrica: se fu
 
 **Título:** Lo que se ve en la web es lo que hay
 
-- Fórmula: **vendible = físico − reservado − bloqueado** (ej. ficticio 20 − 4 − 1 = 15 kg).
+- Fórmula: **vendible = físico − reservado − bloqueado − colchón (si se adopta)** (ej. ficticio sin colchón 20 − 4 − 1 = 15 kg).
 - Reserva al confirmar; salida con peso real; cancelación libera. Sin doble descuento.
 - Ventas simultáneas: solo una reserva gana (demostrado en la demo).
 - Peso variable: se cobra el real; fuera de tolerancia, el cliente confirma.

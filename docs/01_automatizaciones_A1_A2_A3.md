@@ -66,9 +66,11 @@ A1–A3 son **reglas** (si pasa X, haz Y). No predicen: la predicción (IA1–IA
 | **Costo a investigar** | Conector/plugin de la plataforma web, integración con caja, herramienta de pedidos WhatsApp (formulario o WhatsApp Business), hosting de la base central. |
 
 **Fórmula (ejemplo ficticio del enunciado):**
-`vendible = físico − reservado − bloqueado` → 20 kg − 4 kg − 1 kg = **15 kg vendibles**.
+`vendible = físico − reservado − bloqueado − colchón comercial (si se adopta)` → sin colchón: 20 kg − 4 kg − 1 kg − 0 kg = **15 kg vendibles**. El colchón es un margen opcional para no prometer los últimos kilos; si no se adopta vale 0 [PENDIENTE: decisión del negocio].
 
 **Sin doble descuento:** la reserva no toca el físico. La salida hace **físico −real** y **reservado −reservado original** en el mismo movimiento.
+
+**Domicilios:** la cantidad queda reservada desde la confirmación y la salida se registra con el peso real cuando el pedido sale en la moto propia. Si el cliente no recibe o rechaza el pedido, se registra una devolución (vuelve al físico si el producto es apto) o una merma.
 
 **Precio con peso variable [PROPUESTA, validar con Santiago y Maria Camila]:** precio por kg; el cliente aprueba un valor estimado; se cobra el peso real. Si la diferencia supera una tolerancia **[SUPUESTO ±5 %]**, el pedido queda *pendiente de cliente* hasta que acepte el nuevo valor o se ajuste.
 
