@@ -1,0 +1,2279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chickenmart — Tres agentes de IA interconectados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       CHICKENMART CLEAN WHITE THEME — HIGH CONTRAST & ACCESSIBILITY
+       Colores Oficiales:
+       - Granate Borgoña Primario: #7D0608
+       - Crema Melocotón Suave: #FFE6C1 (Acentos y badges)
+       - Fondos Limpios: #FFFFFF y #F8FAFC
+       - Textos de Máximo Contraste: #0F172A (Negro azulado profundo)
+       ========================================================================== */
+    :root {
+      --brand-burgundy: #7D0608;
+      --brand-burgundy-hover: #980b0e;
+      --brand-burgundy-subtle: #fcf1f1;
+      --brand-burgundy-border: #f8c8c9;
+      
+      --brand-cream: #FFE6C1;
+      --brand-cream-badge: #fef3c7;
+      --brand-cream-text: #78350f;
+      
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-subtle: #f1f5f9;
+      
+      --border-light: #e2e8f0;
+      --border-medium: #cbd5e1;
+      
+      --text-main: #0f172a;        /* Negro azulado profundo - Máximo contraste */
+      --text-secondary: #334155;   /* Slate 700 - Muy legible */
+      --text-muted: #64748b;       /* Slate 500 */
+      
+      --status-success: #059669;
+      --status-success-bg: #ecfdf5;
+      --status-success-border: #a7f3d0;
+      --status-success-text: #065f46;
+      
+      --status-warning: #d97706;
+      --status-warning-bg: #fffbeb;
+      --status-warning-border: #fde68a;
+      --status-warning-text: #92400e;
+      
+      --status-danger: #b91c1c;
+      --status-danger-bg: #fef2f2;
+      --status-danger-border: #fca5a5;
+      --status-danger-text: #7f1d1d;
+      
+      --status-info: #0284c7;
+      --status-info-bg: #f0f9ff;
+      --status-info-border: #bae6fd;
+      --status-info-text: #075985;
+      
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-full: 9999px;
+      
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 14px -2px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 10px 25px -4px rgba(0, 0, 0, 0.1);
+      
+      --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: var(--bg-body); }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--brand-burgundy); }
+
+    /* ==========================================================================
+       NAVBAR (TÍTULO EXACTO: Chickenmart / Tres agentes de IA interconectados)
+       ========================================================================== */
+    .navbar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.9rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+    }
+
+    .logo-container {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--brand-burgundy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(125, 6, 8, 0.25);
+    }
+
+    .logo-text-area {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      color: var(--brand-burgundy);
+      line-height: 1.1;
+    }
+
+    .logo-subtitle {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.2px;
+      margin-top: 1px;
+    }
+
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.45rem 1rem;
+      background: #ffffff;
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .user-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--brand-burgundy);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.82rem;
+    }
+
+    /* ==========================================================================
+       MAIN CONTAINER & HERO
+       ========================================================================== */
+    .main-content {
+      max-width: 1360px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 2.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.25rem;
+    }
+
+    .hero-card {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-left: 5px solid var(--brand-burgundy);
+      border-radius: var(--radius-xl);
+      padding: 2.25rem 2.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2.5rem;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+
+    .hero-left {
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      background: var(--brand-burgundy-subtle);
+      border: 1px solid var(--brand-burgundy-border);
+      border-radius: var(--radius-full);
+      color: var(--brand-burgundy);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      width: fit-content;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.6px;
+      color: var(--text-main);
+    }
+
+    .hero-description {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Principal Slogan Ribbon */
+    .slogan-pill {
+      background: #f8fafc;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      min-width: 320px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .slogan-pill strong {
+      color: var(--brand-burgundy);
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .slogan-pill p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    /* ==========================================================================
+       SECTION 4 & 5: TRES PEDIDOS ACTIVOS PARA ELEGIR
+       ========================================================================== */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 0.85rem;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.3px;
+    }
+
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .orders-selection-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .order-select-card {
+      background: #ffffff;
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.6rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.25rem;
+      transition: var(--transition);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    .order-select-card:hover {
+      border-color: var(--brand-burgundy);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .order-select-card.active-order {
+      border-color: var(--brand-burgundy);
+      background: #ffffff;
+      box-shadow: 0 8px 24px -2px rgba(125, 6, 8, 0.15);
+      border-width: 2.5px;
+    }
+
+    .order-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .order-id-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-light);
+    }
+
+    .order-customer-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-top: 0.4rem;
+    }
+
+    .order-product-name {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-top: 0.15rem;
+    }
+
+    .order-stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      background: var(--bg-subtle);
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+    }
+
+    .order-stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .stat-label-dim {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-val-bold {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .btn-select-order {
+      width: 100%;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .order-select-card.active-order .btn-select-order {
+      background: var(--brand-burgundy);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(125, 6, 8, 0.2);
+    }
+
+    .order-select-card:not(.active-order) .btn-select-order {
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1px solid var(--border-medium);
+    }
+    .order-select-card:not(.active-order) .btn-select-order:hover {
+      background: var(--brand-burgundy-subtle);
+      border-color: var(--brand-burgundy);
+      color: var(--brand-burgundy);
+    }
+
+    /* ==========================================================================
+       MAPA DE OPERACIONES (SIN G1, G2, G3)
+       ========================================================================== */
+    .operations-map-card {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem 2rem;
+      box-shadow: var(--shadow-sm);
+      overflow-x: auto;
+    }
+
+    .map-track {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 860px;
+      position: relative;
+      padding: 1rem 0.5rem;
+    }
+
+    .map-track::before {
+      content: '';
+      position: absolute;
+      left: 3.5rem;
+      right: 3.5rem;
+      top: 50%;
+      height: 3px;
+      background: #e2e8f0;
+      z-index: 1;
+      transform: translateY(-50%);
+    }
+
+    .beam-line {
+      position: absolute;
+      left: 3.5rem;
+      top: 50%;
+      height: 3px;
+      width: 0%;
+      background: var(--brand-burgundy);
+      z-index: 1;
+      transform: translateY(-50%);
+      transition: width 0.6s ease;
+    }
+
+    .map-node {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .node-bubble {
+      width: 58px;
+      height: 58px;
+      border-radius: var(--radius-lg);
+      background: #ffffff;
+      border: 2px solid var(--border-medium);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--text-main);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .map-node:hover .node-bubble {
+      border-color: var(--brand-burgundy);
+      transform: translateY(-2px);
+    }
+
+    .map-node.active-node .node-bubble {
+      background: var(--brand-burgundy);
+      border-color: var(--brand-burgundy);
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(125, 6, 8, 0.35);
+    }
+
+    .map-node.completed-node .node-bubble {
+      background: var(--status-success-bg);
+      border-color: var(--status-success);
+      color: var(--status-success);
+    }
+
+    .node-code {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--brand-burgundy);
+    }
+
+    .node-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-align: center;
+      max-width: 120px;
+    }
+
+    /* ==========================================================================
+       DEMO WORKSPACE & STEPPER
+       ========================================================================== */
+    .demo-view-card {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 2.25rem 2.5rem;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .stepper-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 1.25rem;
+      overflow-x: auto;
+      gap: 0.5rem;
+    }
+
+    .step-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: #ffffff;
+      border: 1px solid transparent;
+      transition: var(--transition);
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .step-pill.active {
+      color: #ffffff;
+      background: var(--brand-burgundy);
+      border-color: var(--brand-burgundy);
+      box-shadow: 0 4px 12px rgba(125, 6, 8, 0.25);
+    }
+
+    .step-pill.completed {
+      color: var(--status-success-text);
+      background: var(--status-success-bg);
+      border-color: var(--status-success-border);
+    }
+
+    .step-badge-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .step-pill.active .step-badge-num {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .demo-stage-body {
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .box-clean {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.85rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.35rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* High-contrast Alert Box */
+    .alert-insufficient-stock {
+      background: var(--status-danger-bg);
+      border: 2px solid var(--status-danger-border);
+      border-radius: var(--radius-md);
+      padding: 1.35rem 1.6rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
+
+    .alert-insufficient-stock h4 {
+      color: var(--status-danger-text);
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .alert-insufficient-stock p {
+      color: #1f2937; /* Dark gray for maximum legibility */
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* High-contrast metrics numbers (NO YELLOW) */
+    .metric-value-dark {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #0f172a; /* Deep black-navy */
+    }
+
+    /* Table for Providers Comparison (Requirements 8 & 9) */
+    .providers-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      background: #ffffff;
+    }
+
+    .providers-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    .providers-table th {
+      background: var(--bg-subtle);
+      padding: 0.85rem 1.25rem;
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .providers-table td {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-main);
+      vertical-align: middle;
+    }
+
+    .providers-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .providers-table tr.selected-row {
+      background: var(--brand-burgundy-subtle);
+    }
+
+    .btn-select-provider {
+      padding: 0.45rem 0.95rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid var(--border-medium);
+      background: #ffffff;
+      color: var(--text-main);
+      transition: var(--transition);
+    }
+
+    .btn-select-provider:hover {
+      border-color: var(--brand-burgundy);
+      color: var(--brand-burgundy);
+    }
+
+    .btn-select-provider.selected {
+      background: var(--brand-burgundy);
+      color: #ffffff;
+      border-color: var(--brand-burgundy);
+    }
+
+    /* Scale UI */
+    .scale-box {
+      background: #090d16;
+      border: 2px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .scale-display {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #34d399;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
+    }
+
+    .scale-equation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.25rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+      flex-wrap: wrap;
+    }
+
+    /* General buttons */
+    .btn {
+      padding: 0.7rem 1.4rem;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      outline: none;
+      text-decoration: none;
+    }
+
+    .btn-burgundy {
+      background: var(--brand-burgundy);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(125, 6, 8, 0.2);
+    }
+    .btn-burgundy:hover {
+      background: var(--brand-burgundy-hover);
+      box-shadow: 0 4px 14px rgba(125, 6, 8, 0.3);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      border: 1px solid var(--border-medium);
+      color: var(--text-main);
+    }
+    .btn-outline:hover {
+      border-color: var(--brand-burgundy);
+      color: var(--brand-burgundy);
+    }
+
+    .btn-secondary {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
+    }
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    /* Modal Backdrop */
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-card {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      max-width: 520px;
+      width: 90%;
+      padding: 2.25rem;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      transform: scale(0.96);
+      transition: transform 0.25s ease;
+    }
+    .modal-backdrop.open .modal-card {
+      transform: scale(1);
+    }
+
+    /* Agent Cards (Section 20) */
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .agent-card-modern {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .agent-card-modern:hover {
+      border-color: var(--brand-burgundy);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .agent-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .agent-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .agent-icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      background: var(--brand-burgundy);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .agent-metric-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: var(--bg-subtle);
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .toast-tray {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      z-index: 2000;
+      pointer-events: none;
+    }
+    .toast-msg {
+      background: #ffffff;
+      border: 1px solid var(--border-medium);
+      border-left: 4px solid var(--brand-burgundy);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1.25rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      transform: translateY(15px);
+      transition: all 0.25s ease;
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .navbar { padding: 0.85rem 1.25rem; }
+      .main-content { padding: 1.25rem; }
+      .hero-card { padding: 1.5rem; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       1. ENCABEZADO PRINCIPAL (Exacto: Chickenmart / Tres agentes de IA interconectados)
+       ========================================================================== -->
+  <header class="navbar">
+    <div class="brand-cluster" onclick="scrollToTop()">
+      <div class="logo-container">
+        <!-- Rooster Head & Crest stylized in letter 'C' -->
+        <svg width="26" height="26" viewBox="0 0 100 100" fill="none">
+          <path d="M72 26C65 18 52 14 38 18C22 23 12 38 12 56C12 74 25 86 44 86C60 86 73 76 77 62H58C56 68 49 72 41 72C30 72 23 64 23 54C23 44 30 32 43 30C52 28 60 32 65 37L72 26Z" fill="#FFE6C1"/>
+          <path d="M60 14C65 9 73 11 76 16C79 13 85 15 86 21C89 20 92 23 91 27C86 29 79 32 75 38L66 31C63 26 62 19 60 14Z" fill="#FFE6C1"/>
+          <path d="M82 30L95 34L84 41C82 37 82 33 82 30Z" fill="#FFE6C1"/>
+          <circle cx="68" cy="25" r="2.5" fill="#7D0608"/>
+        </svg>
+      </div>
+      <div class="logo-text-area">
+        <h1 class="logo-title">Chickenmart</h1>
+        <h3 class="logo-subtitle">Tres agentes de IA interconectados</h3>
+      </div>
+    </div>
+
+    <!-- User Pill (María Camila Jiménez — Gerencia) -->
+    <div class="user-pill">
+      <div class="user-avatar">MC</div>
+      <div>
+        <div style="font-weight: 800; line-height: 1.1; font-size: 0.85rem; color: var(--text-main);">María Camila Jiménez</div>
+        <div style="font-size: 0.72rem; color: var(--text-secondary); font-weight: 600;">Gerencia</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <!-- HERO SECTION -->
+    <section class="hero-card">
+      <div class="hero-left">
+        <div class="hero-badge">Operaciones Inteligentes</div>
+        <h2 class="hero-title">Gestión coordinada entre tres agentes y Gerencia</h2>
+        <p class="hero-description">
+          Observa en tiempo real cómo interactúan <strong>Atención y Pedidos</strong>, <strong>Abastecimiento</strong> y <strong>Control Operativo</strong>, manteniendo la toma de decisiones críticas siempre bajo supervisión humana.
+        </p>
+      </div>
+
+      <div class="slogan-pill">
+        <strong>“La IA propone, coordina y hace seguimiento. La persona decide.”</strong>
+        <p>Modelo de supervisión activa (Human-in-the-Loop) sin compras no autorizadas ni sobreventas.</p>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECCIÓN 4 & 5: TRES PEDIDOS ACTIVOS PARA ELEGIR
+         ========================================================================== -->
+    <section id="sectionOrders">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Pedidos Activos en el Sistema</h2>
+          <p class="section-desc">Selecciona cualquiera de los tres pedidos para iniciar la demostración completa e independiente</p>
+        </div>
+      </div>
+
+      <div class="orders-selection-grid">
+        <!-- Pedido 1: Casa Eterna -->
+        <div class="order-select-card active-order" id="cardOrder1" onclick="selectOrder(1)">
+          <div>
+            <div class="order-card-header">
+              <span class="order-id-tag">PEDIDO 1 • #PED-001</span>
+              <span class="hero-badge" style="background: var(--status-warning-bg); color: var(--status-warning-text); border-color: var(--status-warning-border);">
+                Alerta Stock
+              </span>
+            </div>
+            <h3 class="order-customer-title">Casa Eterna</h3>
+            <p class="order-product-name">Producto: <strong>Alitas de pollo</strong></p>
+          </div>
+
+          <div class="order-stat-row">
+            <div class="order-stat-item">
+              <span class="stat-label-dim">Solicitado</span>
+              <span class="stat-val-bold">10 kg</span>
+            </div>
+            <div class="order-stat-item">
+              <span class="stat-label-dim">Disp. Venta</span>
+              <span class="stat-val-bold" style="color: #0f172a;">7 kg</span>
+            </div>
+            <div class="order-stat-item">
+              <span class="stat-label-dim">Faltante</span>
+              <span class="stat-val-bold" style="color: var(--status-danger);">3 kg</span>
+            </div>
+            <div class="order-stat-item">
+              <span class="stat-label-dim">Proveedor</span>
+              <span style="font-weight: 700; color: var(--text-secondary);">Paulandia</span>
+            </div>
+          </div>
+
+          <button class="btn-select-order" id="btnOrder1">
+            <span>✓ Pedido seleccionado para demo</span>
+          </button>
+        </div>
+
+        <!-- Pedido 2: Restaurante El Sabor -->
+        <div class="order-select-card" id="cardOrder2" onclick="selectOrder(2)">
+          <div>
+            <div class="order-card-header">
+              <span class="order-id-tag">PEDIDO 2 • #PED-002</span>
+              <span class="hero-badge" style="background: var(--status-warning-bg); color: var(--status-warning-text); border-color: var(--status-warning-border);">
+                Alerta Stock
+              </span>
+            </div>
+            <h3 class="order-customer-title">Restaurante El Sabor</h3>
+            <p class="order-product-name">Producto: <strong>Pechuga de pollo</strong></p>
+          </div>
+
+          <div class="order-stat-row">
+            <div class="order-stat-item">
+              <span class="stat-label-dim">Solicitado</span>
+              <span class="stat-val-bold">20 kg</span>
+            </div>
+            <div class="order-stat-item">
+              <span class="stat-label-dim">Disp. Venta</span>
+              <span class="stat-val-bold" style="color: #0f172a;">18 kg</span>
+            </div>
+            <div class="order-stat-item">
+              <span class="stat-label-dim">Faltante</span>
+              <span class="stat-val-bold" style="color: var(--status-danger);">2 kg</span>
+            </div>
+            <div class="order-stat-item">
+              <span class="stat-label-dim">Proveedor</span>
+              <span style="font-weight: 700; color: var(--text-secondary);">Avícola Antioquia</span>
+            </div>
+          </div>
+
+          <button class="btn-select-order" id="btnOrder2">
+            <span>Iniciar demo con este pedido</span>
+          </button>
+        </div>
+
+        <!-- Pedido 3: Pollo Express -->
+        <div class="order-select-card" id="cardOrder3" onclick="selectOrder(3)">
+          <div>
+            <div class="order-card-header">
+              <span class="order-id-tag">PEDIDO 3 • #PED-003</span>
+              <span class="hero-badge" style="background: var(--status-warning-bg); color: var(--status-warning-text); border-color: var(--status-warning-border);">
+                Alerta Stock
+              </span>
+            </div>
+            <h3 class="order-customer-title">Pollo Express</h3>
+            <p class="order-product-name">Producto: <strong>Pierna pernil</strong></p>
+          </div>
+
+          <div class="order-stat-row">
+            <div class="order-stat-item">
+              <span class="stat-label-dim">Solicitado</span>
+              <span class="stat-val-bold">15 kg</span>
+            </div>
+            <div class="order-stat-item">
+              <span class="stat-label-dim">Disp. Venta</span>
+              <span class="stat-val-bold" style="color: #0f172a;">10 kg</span>
+            </div>
+            <div class="order-stat-item">
+              <span class="stat-label-dim">Faltante</span>
+              <span class="stat-val-bold" style="color: var(--status-danger);">5 kg</span>
+            </div>
+            <div class="order-stat-item">
+              <span class="stat-label-dim">Proveedor</span>
+              <span style="font-weight: 700; color: var(--text-secondary);">Paulandia</span>
+            </div>
+          </div>
+
+          <button class="btn-select-order" id="btnOrder3">
+            <span>Iniciar demo con este pedido</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAPA DE OPERACIONES (SIN G1/G2/G3) -->
+    <section>
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Mapa de Operaciones y Red de Agentes</h2>
+          <p class="section-desc">Flujo de coordinación en tiempo real para el pedido seleccionado</p>
+        </div>
+        <span class="hero-badge" id="mapBadgeStatus">SINCRONIZADO</span>
+      </div>
+
+      <div class="operations-map-card">
+        <div class="map-track">
+          <div class="beam-line" id="beamLine"></div>
+
+          <div class="map-node active-node" id="nodeClient">
+            <div class="node-bubble">🍽️</div>
+            <div class="node-code">Cliente</div>
+            <div class="node-label" id="mapNodeClientLabel">Casa Eterna</div>
+          </div>
+
+          <div class="map-node" id="nodeG2">
+            <div class="node-bubble">🛒</div>
+            <div class="node-code">Atención</div>
+            <div class="node-label">Atención y Pedidos</div>
+          </div>
+
+          <div class="map-node" id="nodeInventory">
+            <div class="node-bubble">📊</div>
+            <div class="node-code">Inventario</div>
+            <div class="node-label">Stock Central</div>
+          </div>
+
+          <div class="map-node" id="nodeG1">
+            <div class="node-bubble">📦</div>
+            <div class="node-code">Reposición</div>
+            <div class="node-label">Abastecimiento</div>
+          </div>
+
+          <div class="map-node" id="nodeNataly">
+            <div class="node-bubble">👤</div>
+            <div class="node-code">Gerencia</div>
+            <div class="node-label">María Camila (Aprobadora)</div>
+          </div>
+
+          <div class="map-node" id="nodeReception">
+            <div class="node-bubble">⚖️</div>
+            <div class="node-code">Bodega</div>
+            <div class="node-label">Recepción (báscula de piso)</div>
+          </div>
+
+          <div class="map-node" id="nodeG3">
+            <div class="node-bubble">🚨</div>
+            <div class="node-code">Auditoría</div>
+            <div class="node-label">Control Operativo</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         DEMOSTRACIÓN INTERACTIVA DEL PEDIDO SELECCIONADO (10 PASOS)
+         ========================================================================== -->
+    <section class="demo-view-card" id="demoViewCard">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <span class="hero-badge" id="demoActiveBadge">DEMOSTRACIÓN EN CURSO</span>
+          <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-top: 0.35rem;" id="demoHeaderTitle">
+            Paso 1 — Pedido del Cliente
+          </h2>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <button class="btn btn-outline" id="btnPrevStep" onclick="stepPrev()" style="display: none;">
+            ⏮ Anterior
+          </button>
+          <button class="btn btn-secondary" onclick="resetDemo()">
+            ↺ Reiniciar pedido
+          </button>
+        </div>
+      </div>
+
+      <!-- Stepper 1..10 -->
+      <div class="stepper-bar">
+        <div class="step-pill active" id="pill1" onclick="jumpToStep(1)">
+          <div class="step-badge-num">1</div>
+          <span>Pedido</span>
+        </div>
+        <div class="step-pill" id="pill2" onclick="jumpToStep(2)">
+          <div class="step-badge-num">2</div>
+          <span>Atención</span>
+        </div>
+        <div class="step-pill" id="pill3" onclick="jumpToStep(3)">
+          <div class="step-badge-num">3</div>
+          <span>Reserva</span>
+        </div>
+        <div class="step-pill" id="pill4" onclick="jumpToStep(4)">
+          <div class="step-badge-num">4</div>
+          <span>Necesidad</span>
+        </div>
+        <div class="step-pill" id="pill5" onclick="jumpToStep(5)">
+          <div class="step-badge-num">5</div>
+          <span>Propuesta</span>
+        </div>
+        <div class="step-pill" id="pill6" onclick="jumpToStep(6)">
+          <div class="step-badge-num">6</div>
+          <span>Decisión</span>
+        </div>
+        <div class="step-pill" id="pill7" onclick="jumpToStep(7)">
+          <div class="step-badge-num">7</div>
+          <span>Aprobación</span>
+        </div>
+        <div class="step-pill" id="pill8" onclick="jumpToStep(8)">
+          <div class="step-badge-num">8</div>
+          <span>Recepción</span>
+        </div>
+        <div class="step-pill" id="pill9" onclick="jumpToStep(9)">
+          <div class="step-badge-num">9</div>
+          <span>Control</span>
+        </div>
+        <div class="step-pill" id="pill10" onclick="jumpToStep(10)">
+          <div class="step-badge-num">10</div>
+          <span>Cierre</span>
+        </div>
+      </div>
+
+      <!-- Stage Body Container -->
+      <div class="demo-stage-body" id="stageContent">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         TARJETAS DE LOS TRES AGENTES (SIN G1/G2/G3 - ALTO CONTRASTE)
+         ========================================================================== -->
+    <section>
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Agentes Inteligentes</h2>
+          <p class="section-desc">Responsabilidades y métricas operativas en tiempo real</p>
+        </div>
+      </div>
+
+      <div class="agents-grid">
+        <!-- Tarjeta: Atención y Pedidos -->
+        <div class="agent-card-modern">
+          <div class="agent-header">
+            <div class="agent-title-row">
+              <div class="agent-icon-box">🛒</div>
+              <h3 style="font-weight: 800; font-size: 1.15rem; color: var(--text-main);">Atención y Pedidos</h3>
+            </div>
+            <span class="hero-badge" style="background: var(--status-success-bg); color: var(--status-success-text); border-color: var(--status-success-border);">
+              ACTIVO
+            </span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">
+            Gestiona solicitudes, consulta disponibilidad y coordina reservas sin sobrevender.
+          </p>
+          <div class="agent-metric-bar">
+            <div>Pedidos procesados: <strong style="color: var(--text-main);">24</strong></div>
+            <div>Disponibilidad: <strong style="color: var(--text-main);">98%</strong></div>
+          </div>
+        </div>
+
+        <!-- Tarjeta: Abastecimiento -->
+        <div class="agent-card-modern">
+          <div class="agent-header">
+            <div class="agent-title-row">
+              <div class="agent-icon-box">📦</div>
+              <h3 style="font-weight: 800; font-size: 1.15rem; color: var(--text-main);">Abastecimiento</h3>
+            </div>
+            <span class="hero-badge" style="background: var(--status-success-bg); color: var(--status-success-text); border-color: var(--status-success-border);">
+              ACTIVO
+            </span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">
+            Detecta necesidades y genera propuestas de reposición calculadas a Gerencia.
+          </p>
+          <div class="agent-metric-bar">
+            <div>Propuestas: <strong style="color: var(--text-main);">12</strong></div>
+            <div>Aprobadas: <strong style="color: var(--text-main);">10</strong></div>
+          </div>
+        </div>
+
+        <!-- Tarjeta: Control Operativo -->
+        <div class="agent-card-modern">
+          <div class="agent-header">
+            <div class="agent-title-row">
+              <div class="agent-icon-box">🚨</div>
+              <h3 style="font-weight: 800; font-size: 1.15rem; color: var(--text-main);">Control Operativo</h3>
+            </div>
+            <span class="hero-badge" style="background: var(--status-success-bg); color: var(--status-success-text); border-color: var(--status-success-border);">
+              ACTIVO
+            </span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">
+            Investiga incidencias, audita la báscula y realiza seguimiento hasta su cierre.
+          </p>
+          <div class="agent-metric-bar">
+            <div>Controles: <strong style="color: var(--text-main);">18</strong></div>
+            <div>Cerrados: <strong style="color: var(--text-main);">17</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL DE DECISIÓN HUMANA -->
+  <div class="modal-backdrop" id="decisionModal">
+    <div class="modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span class="hero-badge" style="background: var(--status-warning-bg); color: var(--status-warning-text); border-color: var(--status-warning-border);">
+          DECISIÓN REQUERIDA
+        </span>
+        <button class="btn btn-outline" style="padding: 2px 8px;" onclick="closeDecisionModal()">✕</button>
+      </div>
+
+      <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main);">
+        ¿Confirmar reposición?
+      </h3>
+
+      <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
+        La propuesta fue generada por el sistema, pero requiere aprobación humana antes de ejecutarse.
+      </p>
+
+      <div style="background: var(--bg-subtle); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.92rem;">
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Cantidad a comprar:</span>
+          <strong style="color: var(--text-main); font-size: 1.15rem; font-family: 'JetBrains Mono', monospace;" id="modalQty">13 kg</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Costo total estimado:</span>
+          <strong style="color: var(--brand-burgundy); font-size: 1.2rem; font-family: 'JetBrains Mono', monospace;" id="modalCost">$234.000 COP</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-secondary);">Proveedor seleccionado:</span>
+          <strong style="color: var(--text-main);" id="modalSupplier">Paulandia</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; border-top: 1px dashed var(--border-medium); padding-top: 0.5rem;">
+          <span style="color: var(--text-secondary);">Autoriza:</span>
+          <strong style="color: var(--brand-burgundy);">María Camila Jiménez — Gerencia</strong>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 0.5rem;">
+        <button class="btn btn-outline" onclick="closeDecisionModal()">Cancelar</button>
+        <button class="btn btn-burgundy" onclick="confirmApprovalByNataly()">
+          Confirmar aprobación (María Camila)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION TRAY -->
+  <div class="toast-tray" id="toastTray"></div>
+
+  <!-- ==========================================================================
+       JAVASCRIPT: ENGINE & STATE CONNECTED
+       ========================================================================== */ -->
+  <script>
+    /* ==========================================================================
+       1. DATA DEFINITIONS FOR THE 3 INDEPENDENT ORDERS
+       ========================================================================== */
+    const ordersData = {
+      1: {
+        id: "#PED-001",
+        customer: "Casa Eterna",
+        product: "Alitas de pollo",
+        sku: "POL-ALI-003",
+        requested: 10,
+        physical: 12,
+        reserved: 5,
+        sellable: 7,
+        shortage: 3,
+        minStock: 10,
+        suggestedQty: 13, // 3 kg faltantes + 10 kg stock mínimo
+        lot: "ALI-071026",
+        expiration: "11/10/2026",
+        providers: [
+          { name: "Paulandia", price: 18000, available: 30, leadTime: "1 día", recommended: true },
+          { name: "Avícola Antioquia", price: 19000, available: 50, leadTime: "2 días", recommended: false },
+          { name: "Pollo Supremo", price: 17500, available: 20, leadTime: "3 días", recommended: false }
+        ]
+      },
+      2: {
+        id: "#PED-002",
+        customer: "Restaurante El Sabor",
+        product: "Pechuga de pollo",
+        sku: "POL-PCH-001",
+        requested: 20,
+        physical: 20,
+        reserved: 2,
+        sellable: 18,
+        shortage: 2,
+        minStock: 20,
+        suggestedQty: 22, // 2 kg faltantes + 20 kg stock mínimo
+        lot: "PCH-071026",
+        expiration: "10/10/2026",
+        providers: [
+          { name: "Avícola Antioquia", price: 18000, available: 40, leadTime: "1 día", recommended: true },
+          { name: "Paulandia", price: 19200, available: 35, leadTime: "1 día", recommended: false },
+          { name: "Distribuidora Central", price: 17800, available: 25, leadTime: "2 días", recommended: false }
+        ]
+      },
+      3: {
+        id: "#PED-003",
+        customer: "Pollo Express",
+        product: "Pierna pernil",
+        sku: "POL-PER-004",
+        requested: 15,
+        physical: 18,
+        reserved: 8,
+        sellable: 10,
+        shortage: 5,
+        minStock: 15,
+        suggestedQty: 20, // 5 kg faltantes + 15 kg stock mínimo
+        lot: "PER-071026",
+        expiration: "12/10/2026",
+        providers: [
+          { name: "Paulandia", price: 14500, available: 30, leadTime: "1 día", recommended: true },
+          { name: "Avícola Antioquia", price: 15000, available: 40, leadTime: "2 días", recommended: false },
+          { name: "Granja El Amanecer", price: 14000, available: 20, leadTime: "2 días", recommended: false }
+        ]
+      }
+    };
+
+    // ACTIVE SESSION STATE
+    let selectedOrderId = 1;
+    let currentStep = 1;
+
+    // Working mutable variables for the active session
+    let activeQty = 13;
+    let activeProviderIndex = 0;
+    let isProposalRejected = false;
+
+    function getActiveOrder() {
+      return ordersData[selectedOrderId];
+    }
+
+    function formatCOP(num) {
+      return "$" + num.toLocaleString("es-CO");
+    }
+
+    function toast(msg) {
+      const tray = document.getElementById("toastTray");
+      const el = document.createElement("div");
+      el.className = "toast-msg";
+      el.innerHTML = `<span>✔</span><div>${msg}</div>`;
+      tray.appendChild(el);
+      setTimeout(() => el.classList.add("show"), 20);
+      setTimeout(() => {
+        el.classList.remove("show");
+        setTimeout(() => el.remove(), 250);
+      }, 3500);
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* ==========================================================================
+       2. ORDER SWITCHING (REQUIREMENTS 4 & 5)
+       ========================================================================== */
+    function selectOrder(orderId) {
+      selectedOrderId = orderId;
+      const order = getActiveOrder();
+
+      // Reset proposal values for this order
+      activeQty = order.suggestedQty;
+      activeProviderIndex = 0;
+      isProposalRejected = false;
+
+      // Update Order Selection Cards Visuals
+      for (let i = 1; i <= 3; i++) {
+        const card = document.getElementById(`cardOrder${i}`);
+        const btn = document.getElementById(`btnOrder${i}`);
+        if (i === orderId) {
+          card.classList.add("active-order");
+          btn.innerHTML = "<span>✓ Pedido seleccionado para demo</span>";
+        } else {
+          card.classList.remove("active-order");
+          btn.innerHTML = "<span>Iniciar demo con este pedido</span>";
+        }
+      }
+
+      // Update Map Node label
+      document.getElementById("mapNodeClientLabel").innerText = order.customer;
+
+      // Reset Stepper & Jump to Step 1
+      setStep(1);
+
+      // Scroll smoothly to demo view
+      document.getElementById("demoViewCard").scrollIntoView({ behavior: "smooth", block: "start" });
+      toast(`Cargado ${order.customer} (${order.product} - ${order.requested} kg)`);
+    }
+
+    /* ==========================================================================
+       3. 10 RECOVERED DIDACTIC STEPS (CONNECTED & RIGOROUS)
+       ========================================================================== */
+    function renderStepContent(step) {
+      const order = getActiveOrder();
+      const currentProvider = order.providers[activeProviderIndex];
+      const totalCost = activeQty * currentProvider.price;
+
+      switch(step) {
+        case 1:
+          return `
+            <div class="box-clean">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 1rem;">
+                <div>
+                  <span class="hero-badge" style="background: var(--status-info-bg); color: var(--status-info-text); border-color: var(--status-info-border);">
+                    NUEVO PEDIDO
+                  </span>
+                  <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-top: 0.35rem;">${order.customer}</h3>
+                  <p style="font-size: 0.88rem; color: var(--text-secondary);">Producto: <strong style="color: var(--text-main);">${order.product}</strong> • SKU: ${order.sku}</p>
+                </div>
+                <div style="text-align: right;">
+                  <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Cantidad solicitada</span>
+                  <div class="metric-value-dark" style="font-size: 2.4rem; color: var(--brand-burgundy);">${order.requested} kg</div>
+                  <div style="font-size: 0.85rem; color: var(--status-info-text); font-weight: 700;">🔵 Nuevo pedido</div>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <p style="font-size: 0.95rem; color: var(--text-secondary); max-width: 620px;">
+                  El cliente <strong>${order.customer}</strong> solicita <strong>${order.requested} kg de ${order.product}</strong>. Presiona "Procesar pedido" para que el área de <strong>Atención y Pedidos</strong> consulte el inventario vendible en tiempo real.
+                </p>
+                <button class="btn btn-burgundy" style="padding: 0.85rem 1.8rem; font-size: 0.95rem;" onclick="stepNext()">
+                  <span>Procesar pedido</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+              </div>
+            </div>
+          `;
+
+        case 2:
+          return `
+            <div class="box-clean">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.85rem;">
+                  <div class="agent-icon-box">🛒</div>
+                  <div>
+                    <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main);">Atención y Pedidos</h3>
+                    <div style="font-size: 0.82rem; color: var(--status-success-text); font-weight: 700;">🟢 Consultando disponibilidad en catálogo central...</div>
+                  </div>
+                </div>
+                <span class="hero-badge">${order.sku}</span>
+              </div>
+
+              <!-- High Contrast Result Box (NO YELLOW NUMBERS) -->
+              <div style="background: var(--bg-subtle); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; text-align: center;">
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Pedido solicitado</span>
+                  <div class="metric-value-dark">${order.requested} kg</div>
+                </div>
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Disponible para venta</span>
+                  <div class="metric-value-dark" style="color: #0f172a;">${order.sellable} kg</div>
+                </div>
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--status-danger-text); text-transform: uppercase; font-weight: 700;">Faltante detectado</span>
+                  <div class="metric-value-dark" style="color: var(--status-danger);">${order.shortage} kg</div>
+                </div>
+              </div>
+
+              <!-- HIGH CONTRAST INSUFFICIENT STOCK ALERT (REQUIREMENT 7) -->
+              <div class="alert-insufficient-stock">
+                <div style="font-size: 1.8rem;">⚠️</div>
+                <div style="flex: 1;">
+                  <h4>Inventario insuficiente</h4>
+                  <p>
+                    Se solicitan <strong>${order.requested} kg</strong>, pero solo hay <strong>${order.sellable} kg</strong> disponibles para la venta.
+                  </p>
+                  <p style="margin-top: 0.35rem; color: var(--text-secondary); font-size: 0.88rem;">
+                    Actualmente hay ${order.sellable} kg disponibles para venta. El sistema no permitirá confirmar una cantidad superior a la disponibilidad real.
+                  </p>
+                  <div style="margin-top: 1rem;">
+                    <button class="btn btn-burgundy" onclick="stepNext()">
+                      <span>Continuar con reserva parcial ➔</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+
+        case 3:
+          return `
+            <div class="box-clean">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 1rem;">
+                <div>
+                  <span class="hero-badge" style="background: var(--status-warning-bg); color: var(--status-warning-text); border-color: var(--status-warning-border);">
+                    RESERVA CREADA
+                  </span>
+                  <h3 style="font-size: 1.45rem; font-weight: 800; color: var(--text-main); margin-top: 0.35rem;">Pedido: ${order.id}</h3>
+                  <p style="font-size: 0.88rem; color: var(--text-secondary);">${order.customer} • ${order.product}</p>
+                </div>
+                <div style="text-align: right;">
+                  <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Estado de la orden</span>
+                  <div style="font-size: 1.15rem; font-weight: 800; color: var(--status-warning);">🟡 Esperando reposición</div>
+                </div>
+              </div>
+
+              <!-- High Contrast Stats -->
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.25rem; background: var(--bg-subtle); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-medium); text-align: center;">
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Solicitado</span>
+                  <div class="metric-value-dark">${order.requested} kg</div>
+                </div>
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--status-success-text); text-transform: uppercase; font-weight: 700;">Reservado</span>
+                  <div class="metric-value-dark" style="color: #0f172a;">${order.sellable} kg</div>
+                </div>
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--status-danger-text); text-transform: uppercase; font-weight: 700;">Pendiente</span>
+                  <div class="metric-value-dark" style="color: var(--status-danger);">${order.shortage} kg</div>
+                </div>
+              </div>
+
+              <!-- Clear Inventory Status -->
+              <div style="background: #ffffff; border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem;">
+                <div style="font-size: 0.82rem; font-weight: 800; text-transform: uppercase; color: var(--brand-burgundy);">
+                  Actualización en Inventario Central
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text-main); font-family: 'JetBrains Mono', monospace;">
+                  <span>Stock físico: <strong>${order.physical} kg</strong></span>
+                  <span>Stock reservado: <strong>${order.reserved + order.sellable} kg</strong></span>
+                  <span>Stock vendible: <strong style="color: var(--status-danger);">0 kg</strong></span>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: flex-end; margin-top: 0.5rem;">
+                <button class="btn btn-burgundy" onclick="stepNext()">
+                  <span>Activar Abastecimiento ➔</span>
+                </button>
+              </div>
+            </div>
+          `;
+
+        case 4:
+          return `
+            <div class="box-clean">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.85rem;">
+                  <div class="agent-icon-box">📦</div>
+                  <div>
+                    <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main);">Abastecimiento</h3>
+                    <p style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 0.15rem;">
+                      Se detectó una necesidad de reposición para completar el pedido.
+                    </p>
+                  </div>
+                </div>
+                <span class="hero-badge" style="background: var(--status-warning-bg); color: var(--status-warning-text); border-color: var(--status-warning-border);">
+                  NECESIDAD DETECTADA
+                </span>
+              </div>
+
+              <div style="background: var(--bg-subtle); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem;">
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Producto</span>
+                  <div style="font-size: 1.2rem; font-weight: 800; color: var(--text-main);">${order.product}</div>
+                </div>
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--status-danger-text); text-transform: uppercase; font-weight: 700;">Faltante</span>
+                  <div class="metric-value-dark" style="color: var(--status-danger); font-size: 1.6rem;">${order.shortage} kg</div>
+                </div>
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Stock disponible</span>
+                  <div class="metric-value-dark" style="font-size: 1.6rem; color: #0f172a;">0 kg</div>
+                </div>
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Stock mínimo</span>
+                  <div class="metric-value-dark" style="font-size: 1.6rem; color: #0f172a;">${order.minStock} kg</div>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: flex-end; margin-top: 0.5rem;">
+                <button class="btn btn-burgundy" onclick="stepNext()">
+                  <span>Comparar proveedores y ver propuesta ➔</span>
+                </button>
+              </div>
+            </div>
+          `;
+
+        case 5:
+          // REQUISITO 8, 9, 10, 11: Múltiples proveedores, modificar, rechazar, aprobar
+          let rowsHtml = order.providers.map((p, idx) => {
+            const isSelected = idx === activeProviderIndex;
+            return `
+              <tr class="${isSelected ? 'selected-row' : ''}">
+                <td>
+                  <strong>${p.name}</strong> ${p.recommended ? '<span class="hero-badge" style="font-size: 0.65rem; padding: 2px 6px;">Sugerido</span>' : ''}
+                </td>
+                <td>${order.product}</td>
+                <td><strong style="font-family: 'JetBrains Mono', monospace; color: var(--text-main);">${formatCOP(p.price)}/kg</strong></td>
+                <td>${p.available} kg</td>
+                <td><strong>${p.leadTime}</strong></td>
+                <td>
+                  <button class="btn-select-provider ${isSelected ? 'selected' : ''}" onclick="selectProvider(${idx})">
+                    ${isSelected ? '✓ Seleccionado' : 'Seleccionar proveedor'}
+                  </button>
+                </td>
+              </tr>
+            `;
+          }).join('');
+
+          if (isProposalRejected) {
+            return `
+              <div class="box-clean">
+                <div class="alert-insufficient-stock" style="background: var(--status-danger-bg); border-color: var(--status-danger-border);">
+                  <div style="font-size: 1.8rem;">✕</div>
+                  <div>
+                    <h4 style="color: var(--status-danger-text);">La propuesta fue rechazada por Gerencia.</h4>
+                    <p style="color: #1f2937;">
+                      Operación cancelada formalmente por <strong>María Camila Jiménez — Gerencia</strong>. La orden de compra NO fue emitida ni se ejecutó ningún gasto.
+                    </p>
+                    <div style="margin-top: 1rem; display: flex; gap: 0.75rem;">
+                      <button class="btn btn-outline" onclick="reconsiderProposal()">
+                        <span>↺ Reconsiderar y volver a evaluar</span>
+                      </button>
+                      <button class="btn btn-secondary" onclick="setStep(1)">
+                        <span>Volver al inicio del pedido</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+
+          return `
+            <div class="box-clean">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                  <span class="hero-badge">ABASTECIMIENTO — COMPARATIVA DE PROVEEDORES</span>
+                  <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-top: 0.35rem;">Opciones de abastecimiento disponibles</h3>
+                </div>
+                <span class="hero-badge" style="background: var(--status-warning-bg); color: var(--status-warning-text); border-color: var(--status-warning-border);">
+                  🟡 Pendiente de aprobación de Gerencia
+                </span>
+              </div>
+
+              <!-- Providers Table (Requirement 8 & 9) -->
+              <div class="providers-table-wrap">
+                <table class="providers-table">
+                  <thead>
+                    <tr>
+                      <th>Proveedor</th>
+                      <th>Producto</th>
+                      <th>Precio por kg</th>
+                      <th>Cantidad disponible</th>
+                      <th>Entrega</th>
+                      <th>Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${rowsHtml}
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Active Proposal Summary Card (Requirement 9 & 10) -->
+              <div style="background: var(--bg-subtle); border: 2px solid var(--border-medium); border-radius: var(--radius-lg); padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+                  <div>
+                    <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Proveedor Seleccionado</div>
+                    <div style="font-size: 1.3rem; font-weight: 800; color: var(--brand-burgundy);">${currentProvider.name}</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.2rem;">
+                      Precio unitario: <strong>${formatCOP(currentProvider.price)}/kg</strong> • Entrega: <strong>${currentProvider.leadTime}</strong>
+                    </div>
+                  </div>
+
+                  <!-- Editable Quantity (Requirement 10) -->
+                  <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem;">
+                    <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Cantidad sugerida a reponer</div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                      <button class="btn btn-outline" style="padding: 0.35rem 0.75rem; font-size: 1.1rem; font-weight: 800;" onclick="adjustQuantity(-1)">−</button>
+                      <input type="number" id="inputQty" value="${activeQty}" min="1" max="100" style="width: 80px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 1.35rem; font-weight: 800; border: 2px solid var(--border-medium); border-radius: var(--radius-sm); padding: 0.35rem;" onchange="setCustomQuantity(this.value)">
+                      <span style="font-weight: 800; font-size: 1.1rem;">kg</span>
+                      <button class="btn btn-outline" style="padding: 0.35rem 0.75rem; font-size: 1.1rem; font-weight: 800;" onclick="adjustQuantity(1)">+</button>
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Puedes modificar la cantidad libremente</div>
+                  </div>
+                </div>
+
+                <!-- Live Recalculated Cost -->
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px dashed var(--border-medium); flex-wrap: wrap; gap: 0.75rem;">
+                  <div style="font-size: 0.95rem; color: var(--text-secondary);">
+                    Fórmula: <strong style="font-family: 'JetBrains Mono', monospace;">${activeQty} kg × ${formatCOP(currentProvider.price)} =</strong>
+                  </div>
+                  <div style="font-size: 1.85rem; font-weight: 800; color: var(--text-main); font-family: 'JetBrains Mono', monospace;">
+                    Costo total: <span style="color: var(--brand-burgundy);">${formatCOP(totalCost)} COP</span>
+                  </div>
+                </div>
+
+                <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; background: #ffffff; padding: 0.85rem 1rem; border-radius: var(--radius-sm); border-left: 3px solid var(--brand-burgundy);">
+                  <strong>Explicación:</strong> Se propone reponer <strong>${activeQty} kg</strong> para cubrir los <strong>${order.shortage} kg faltantes</strong> del pedido y recuperar parcialmente el nivel operativo de inventario (${order.minStock} kg mínimo).
+                </div>
+              </div>
+
+              <!-- Buttons: Aprobar, Modificar, Rechazar (Requirements 10, 11, 12) -->
+              <div style="display: flex; justify-content: flex-end; gap: 0.85rem; flex-wrap: wrap; align-items: center;">
+                <button class="btn btn-outline" style="color: var(--status-danger-text); border-color: var(--status-danger-border);" onclick="rejectProposal()">
+                  ✕ Rechazar
+                </button>
+                <button class="btn btn-secondary" onclick="promptQuantity()">
+                  ✎ Modificar
+                </button>
+                <button class="btn btn-burgundy" style="padding: 0.75rem 1.75rem;" onclick="openDecisionModal()">
+                  ✓ Aprobar
+                </button>
+              </div>
+            </div>
+          `;
+
+        case 6:
+          return `
+            <div class="box-clean">
+              <div style="text-align: center; max-width: 620px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem;">
+                <span class="hero-badge" style="margin: 0 auto; background: var(--status-warning-bg); color: var(--status-warning-text); border-color: var(--status-warning-border);">
+                  SUPERVISIÓN HUMANA OBLIGATORIA
+                </span>
+                <h3 style="font-size: 1.7rem; font-weight: 800; color: var(--text-main);">¿Confirmar reposición?</h3>
+                <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;">
+                  La propuesta fue generada por el sistema, pero requiere aprobación humana antes de ejecutarse.
+                </p>
+
+                <div style="background: var(--bg-subtle); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; font-family: 'JetBrains Mono', monospace; text-align: center;">
+                  <div>
+                    <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Cantidad</span>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: var(--text-main);">${activeQty} kg</div>
+                  </div>
+                  <div>
+                    <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Costo</span>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: var(--brand-burgundy);">${formatCOP(totalCost)} COP</div>
+                  </div>
+                  <div>
+                    <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Proveedor</span>
+                    <div style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif;">${currentProvider.name}</div>
+                  </div>
+                </div>
+
+                <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem;">
+                  <button class="btn btn-outline" onclick="stepPrev()">Cancelar</button>
+                  <button class="btn btn-burgundy" style="padding: 0.85rem 2rem;" onclick="confirmApprovalByNataly()">
+                    Confirmar aprobación
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+
+        case 7:
+          return `
+            <div class="box-clean">
+              <div style="text-align: center; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+                <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--status-success-bg); border: 2px solid var(--status-success); color: var(--status-success); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+                  ✓
+                </div>
+                <h3 style="font-size: 1.65rem; font-weight: 800; color: var(--text-main);">✓ Reposición aprobada</h3>
+                <div style="font-size: 0.95rem; color: var(--text-secondary);">
+                  Aprobado por: <strong style="color: var(--text-main);">María Camila Jiménez — Gerencia</strong> • Estado: <strong style="color: var(--status-success-text);">🟢 Aprobada</strong>
+                </div>
+
+                <!-- Generated Purchase Order -->
+                <div style="background: var(--bg-subtle); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 1.5rem; width: 100%; display: flex; flex-direction: column; gap: 0.75rem; text-align: left; margin-top: 0.5rem;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-medium); padding-bottom: 0.5rem;">
+                    <strong style="color: var(--brand-burgundy); font-size: 1.15rem;">Orden de compra OC-001</strong>
+                    <span class="hero-badge" style="background: var(--status-info-bg); color: var(--status-info-text); border-color: var(--status-info-border);">
+                      🚚 En tránsito
+                    </span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                    <span style="color: var(--text-secondary);">Producto:</span>
+                    <strong>${order.product}</strong>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                    <span style="color: var(--text-secondary);">Cantidad:</span>
+                    <strong style="font-family: 'JetBrains Mono', monospace; font-size: 1.05rem;">${activeQty} kg</strong>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                    <span style="color: var(--text-secondary);">Proveedor:</span>
+                    <strong>${currentProvider.name}</strong>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                    <span style="color: var(--text-secondary);">Total a facturar:</span>
+                    <strong style="color: var(--brand-burgundy); font-family: 'JetBrains Mono', monospace;">${formatCOP(totalCost)} COP</strong>
+                  </div>
+                </div>
+
+                <div style="margin-top: 1rem;">
+                  <button class="btn btn-burgundy" onclick="stepNext()">
+                    <span>Simular recepción en bodega ➔</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+
+        case 8:
+          const grossWeight = activeQty + 1; // 1 kg tara
+          return `
+            <div class="box-clean">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <span class="hero-badge">RECEPCIÓN DE MERCANCÍA</span>
+                  <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-top: 0.25rem;">Orden: OC-001 • ${order.product}</h3>
+                  <p style="font-size: 0.85rem; color: var(--text-secondary);">Proveedor: <strong>${currentProvider.name}</strong> • Cantidad esperada: <strong>${activeQty} kg</strong></p>
+                </div>
+                <span class="hero-badge" style="background: var(--status-info-bg); color: var(--status-info-text); border-color: var(--status-info-border);">
+                  EN BÁSCULA
+                </span>
+              </div>
+
+              <!-- Industrial Digital Scale with Visible Formula -->
+              <div class="scale-box">
+                <div style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">
+                  BÁSCULA DE PISO ACTUAL · PESO LEÍDO EN EL VISOR Y CONFIRMADO POR EL OPERADOR
+                </div>
+                <div class="scale-display">${activeQty}.00 KG</div>
+                <div class="scale-equation">
+                  <div>Peso bruto: <span style="color: #ffffff;">${grossWeight} kg</span></div>
+                  <div style="color: #64748b;">−</div>
+                  <div>Tara: <span style="color: #ffffff;">1 kg</span></div>
+                  <div style="color: #64748b;">=</div>
+                  <div>Peso neto: <span style="color: #34d399;">${activeQty} kg</span></div>
+                </div>
+                <div style="font-size: 0.95rem; color: #fbbf24; font-weight: 700; margin-top: 0.85rem; font-family: 'JetBrains Mono', monospace;">
+                  Fórmula visible: ${grossWeight} kg − 1 kg = ${activeQty} kg
+                </div>
+                <div style="font-size: 0.8rem; color: #cbd5e1; margin-top: 0.75rem; line-height: 1.45;">
+                  Validación real: las básculas actuales no tienen una salida de datos comprobada. En el piloto el operador digita el peso del visor (o toma una foto del visor) y lo confirma; la compra se registra en Siigo una sola vez.
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; background: var(--bg-subtle); padding: 1.1rem 1.4rem; border-radius: var(--radius-md); border: 1px solid var(--border-medium); font-size: 0.9rem;">
+                <div>Lote: <strong style="font-family: 'JetBrains Mono', monospace; color: var(--text-main);">${order.lot}</strong></div>
+                <div>Vencimiento: <strong style="font-family: 'JetBrains Mono', monospace; color: var(--text-main);">${order.expiration}</strong></div>
+                <button class="btn btn-burgundy" onclick="stepNext()">
+                  <span>Registrar recepción</span>
+                </button>
+              </div>
+            </div>
+          `;
+
+        case 9:
+          return `
+            <div class="box-clean">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 0.85rem;">
+                  <div class="agent-icon-box">🚨</div>
+                  <div>
+                    <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main);">Control Operativo</h3>
+                    <div style="font-size: 0.82rem; color: var(--status-info-text); font-weight: 700;">Verificando recepción...</div>
+                  </div>
+                </div>
+                <span class="hero-badge">AUDITORÍA</span>
+              </div>
+
+              <!-- Automated Verification Checklist -->
+              <div style="background: var(--bg-subtle); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 1.35rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.92rem; color: var(--text-main);">
+                <div style="color: var(--status-success-text); font-weight: 600;">✓ Orden aprobada (OC-001)</div>
+                <div style="color: var(--status-success-text); font-weight: 600;">✓ Proveedor identificado (${currentProvider.name})</div>
+                <div style="color: var(--status-success-text); font-weight: 600;">✓ Cantidad recibida (${activeQty} kg)</div>
+                <div style="color: var(--status-success-text); font-weight: 600;">✓ Peso neto validado (${activeQty + 1} kg bruto − 1 kg tara = ${activeQty} kg)</div>
+                <div style="color: var(--status-success-text); font-weight: 600;">✓ Lote registrado (${order.lot})</div>
+                <div style="color: var(--status-success-text); font-weight: 600;">✓ Vencimiento registrado (${order.expiration})</div>
+                <div style="color: var(--status-success-text); font-weight: 600;">✓ Pedido, factura y recibido comparados; compra registrada en Siigo una sola vez</div>
+              </div>
+
+              <div style="background: var(--status-success-bg); border: 1.5px solid var(--status-success-border); border-radius: var(--radius-md); padding: 1.35rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                  <h4 style="color: var(--status-success-text); font-weight: 800; font-size: 1.15rem;">✓ Todo coincide</h4>
+                  <div style="font-size: 0.88rem; color: var(--text-main); margin-top: 0.2rem; font-family: 'JetBrains Mono', monospace;">
+                    Cantidad esperada: <strong>${activeQty} kg</strong> • Cantidad recibida: <strong>${activeQty} kg</strong> • Estado: <strong style="color: var(--status-success-text);">🟢 Validado</strong>
+                  </div>
+                </div>
+                <button class="btn btn-burgundy" onclick="stepNext()">
+                  <span>Cerrar control</span>
+                </button>
+              </div>
+            </div>
+          `;
+
+        case 10:
+          const finalPhysical = order.physical + activeQty;
+          const finalReserved = order.reserved + order.requested; // reservas previas + pedido completo
+          const finalSellable = finalPhysical - finalReserved;
+
+          return `
+            <div class="box-clean">
+              <div style="text-align: center; max-width: 650px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem;">
+                <div style="width: 56px; height: 56px; border-radius: 50%; background: var(--status-success-bg); border: 2px solid var(--status-success); color: var(--status-success); display: flex; align-items: center; justify-content: center; font-size: 1.75rem; margin: 0 auto;">
+                  ✓
+                </div>
+                <h2 style="font-size: 1.85rem; font-weight: 800; color: var(--text-main);">
+                  ✓ Operación completada
+                </h2>
+                <div class="hero-badge" style="margin: 0 auto;">
+                  PEDIDO ${order.id} • ${order.customer} • ${order.product}: ${order.requested} KG
+                </div>
+              </div>
+
+              <!-- Journey Recap -->
+              <div style="background: var(--bg-subtle); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 1.25rem; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 0.75rem; font-size: 0.85rem; text-align: center;">
+                <div>
+                  <div style="font-size: 1.3rem;">🛒</div>
+                  <div style="font-weight: 800; color: var(--text-main);">Atención y Pedidos</div>
+                </div>
+                <div style="color: var(--text-muted);">↓</div>
+                <div>
+                  <div style="font-size: 1.3rem;">📦</div>
+                  <div style="font-weight: 800; color: var(--text-main);">Abastecimiento</div>
+                </div>
+                <div style="color: var(--text-muted);">↓</div>
+                <div>
+                  <div style="font-size: 1.3rem;">👩‍💼</div>
+                  <div style="font-weight: 800; color: var(--text-main);">Gerencia</div>
+                </div>
+                <div style="color: var(--text-muted);">↓</div>
+                <div>
+                  <div style="font-size: 1.3rem;">⚖️</div>
+                  <div style="font-weight: 800; color: var(--text-main);">Recepción</div>
+                </div>
+                <div style="color: var(--text-muted);">↓</div>
+                <div>
+                  <div style="font-size: 1.3rem;">🚨</div>
+                  <div style="font-weight: 800; color: var(--text-main);">Control Operativo</div>
+                </div>
+                <div style="color: var(--text-muted);">↓</div>
+                <div style="color: var(--status-success-text); font-weight: 800;">
+                  ✓ Pedido completado
+                </div>
+              </div>
+
+              <!-- Final Inventory Comparison (Antes vs Después con Animación Numérica) -->
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
+                <div style="background: #ffffff; border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 1.25rem;">
+                  <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">ANTES</span>
+                  <div style="font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary); font-family: 'JetBrains Mono', monospace; margin-top: 0.5rem;">
+                    <div>Stock físico: <strong>${order.physical} kg</strong></div>
+                    <div>Stock reservado: <strong>${order.reserved} kg</strong></div>
+                    <div>Stock vendible: <strong>${order.sellable} kg</strong></div>
+                  </div>
+                </div>
+
+                <div style="background: var(--status-success-bg); border: 2px solid var(--status-success-border); border-radius: var(--radius-md); padding: 1.25rem;">
+                  <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--status-success-text); font-weight: 800;">DESPUÉS DE LA RECEPCIÓN</span>
+                  <div style="font-size: 1.05rem; line-height: 1.6; color: var(--text-main); font-family: 'JetBrains Mono', monospace; margin-top: 0.5rem;">
+                    <div>Stock físico: <strong style="color: var(--status-success-text); font-size: 1.35rem;">${finalPhysical} kg</strong></div>
+                    <div>Stock reservado: <strong>${finalReserved} kg</strong></div>
+                    <div>Stock vendible: <strong style="color: var(--brand-burgundy); font-size: 1.35rem;">${finalSellable} kg</strong></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Didactic Explanatory Breakdown: ¿Qué hizo cada área? -->
+              <div style="background: #ffffff; border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 1.4rem; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem; line-height: 1.5;">
+                <h4 style="color: var(--brand-burgundy); font-size: 1rem; font-weight: 800; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem;">
+                  ¿Qué hizo cada área?
+                </h4>
+                <div>🛒 <strong>Atención y Pedidos:</strong> Recibió el pedido, consultó disponibilidad y reservó el producto disponible.</div>
+                <div>📦 <strong>Abastecimiento:</strong> Detectó el faltante, comparó proveedores y propuso cuánto reponer.</div>
+                <div>👩‍💼 <strong>Gerencia:</strong> Aprobó la compra formalmente.</div>
+                <div>⚖️ <strong>Recepción:</strong> Pesó la mercancía en la báscula de piso, confirmó el peso leído y registró la compra en Siigo.</div>
+                <div>🚨 <strong>Control Operativo:</strong> Comprobó que todo coincidiera y cerró el seguimiento.</div>
+              </div>
+
+              <!-- Slogan Final -->
+              <div style="background: var(--brand-burgundy-subtle); border: 1px solid var(--brand-burgundy-border); border-radius: var(--radius-md); padding: 1.5rem; text-align: center;">
+                <div style="font-size: 1.35rem; font-weight: 800; color: var(--brand-burgundy);">
+                  “La IA propone, coordina y hace seguimiento. La persona decide.”
+                </div>
+                <div style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 0.25rem;">
+                  Chickenmart • Tres agentes de IA interconectados
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 0.5rem;">
+                <button class="btn btn-secondary" onclick="resetDemo()">
+                  ↺ Reiniciar demostración
+                </button>
+                <button class="btn btn-burgundy" onclick="scrollToTop()">
+                  Probar otro pedido activo ➔
+                </button>
+              </div>
+            </div>
+          `;
+      }
+    }
+
+    /* ==========================================================================
+       4. CONTROLLER & STEPPER ACTIONS
+       ========================================================================== */
+    function setStep(step) {
+      if (step < 1) step = 1;
+      if (step > 10) step = 10;
+      currentStep = step;
+
+      // Update Pills
+      for (let i = 1; i <= 10; i++) {
+        const pill = document.getElementById(`pill${i}`);
+        if (!pill) continue;
+        pill.classList.remove("active", "completed");
+        if (i === currentStep) {
+          pill.classList.add("active");
+        } else if (i < currentStep) {
+          pill.classList.add("completed");
+        }
+      }
+
+      // Update Map Nodes & Beam
+      updateOperationsMap(step);
+
+      // Render Stage Content
+      const container = document.getElementById("stageContent");
+      container.innerHTML = renderStepContent(step);
+
+      // Update Header Title
+      const titles = {
+        1: "Paso 1 — Pedido del Cliente",
+        2: "Paso 2 — Atención y Pedidos",
+        3: "Paso 3 — Reserva",
+        4: "Paso 4 — Abastecimiento",
+        5: "Paso 5 — Propuesta de Reposición",
+        6: "Paso 6 — Decisión Humana",
+        7: "Paso 7 — Aprobación",
+        8: "Paso 8 — Recepción",
+        9: "Paso 9 — Control Operativo",
+        10: "Paso 10 — Cierre"
+      };
+      document.getElementById("demoHeaderTitle").innerText = titles[step] || "Demostración";
+
+      // Prev Button state
+      const btnPrev = document.getElementById("btnPrevStep");
+      btnPrev.style.display = currentStep > 1 ? "inline-flex" : "none";
+    }
+
+    function stepNext() {
+      if (currentStep < 10) setStep(currentStep + 1);
+    }
+
+    function stepPrev() {
+      if (currentStep > 1) setStep(currentStep - 1);
+    }
+
+    function jumpToStep(num) {
+      setStep(num);
+    }
+
+    function resetDemo() {
+      const order = getActiveOrder();
+      activeQty = order.suggestedQty;
+      activeProviderIndex = 0;
+      isProposalRejected = false;
+      setStep(1);
+      toast(`↺ Demostración de ${order.customer} reiniciada`);
+    }
+
+    /* Operations Map Dynamic Lighting */
+    function updateOperationsMap(step) {
+      const beam = document.getElementById("beamLine");
+      const nodeClient = document.getElementById("nodeClient");
+      const nodeG2 = document.getElementById("nodeG2");
+      const nodeInv = document.getElementById("nodeInventory");
+      const nodeG1 = document.getElementById("nodeG1");
+      const nodeNataly = document.getElementById("nodeNataly");
+      const nodeRec = document.getElementById("nodeReception");
+      const nodeG3 = document.getElementById("nodeG3");
+
+      [nodeClient, nodeG2, nodeInv, nodeG1, nodeNataly, nodeRec, nodeG3].forEach(n => {
+        n.classList.remove("active-node", "completed-node");
+      });
+
+      const percentages = {
+        1: "10%",
+        2: "25%",
+        3: "35%",
+        4: "50%",
+        5: "55%",
+        6: "68%",
+        7: "72%",
+        8: "84%",
+        9: "94%",
+        10: "100%"
+      };
+      beam.style.width = percentages[step] || "0%";
+
+      if (step === 1) {
+        nodeClient.classList.add("active-node");
+      } else if (step === 2) {
+        nodeClient.classList.add("completed-node");
+        nodeG2.classList.add("active-node");
+        nodeInv.classList.add("active-node");
+      } else if (step === 3) {
+        nodeClient.classList.add("completed-node");
+        nodeG2.classList.add("active-node");
+        nodeInv.classList.add("completed-node");
+      } else if (step === 4 || step === 5) {
+        nodeClient.classList.add("completed-node");
+        nodeG2.classList.add("completed-node");
+        nodeInv.classList.add("completed-node");
+        nodeG1.classList.add("active-node");
+      } else if (step === 6 || step === 7) {
+        [nodeClient, nodeG2, nodeInv, nodeG1].forEach(n => n.classList.add("completed-node"));
+        nodeNataly.classList.add("active-node");
+      } else if (step === 8) {
+        [nodeClient, nodeG2, nodeInv, nodeG1, nodeNataly].forEach(n => n.classList.add("completed-node"));
+        nodeRec.classList.add("active-node");
+      } else if (step === 9) {
+        [nodeClient, nodeG2, nodeInv, nodeG1, nodeNataly, nodeRec].forEach(n => n.classList.add("completed-node"));
+        nodeG3.classList.add("active-node");
+      } else if (step === 10) {
+        [nodeClient, nodeG2, nodeInv, nodeG1, nodeNataly, nodeRec, nodeG3].forEach(n => n.classList.add("completed-node"));
+      }
+    }
+
+    /* Provider Selection & Modification Functions */
+    function selectProvider(idx) {
+      activeProviderIndex = idx;
+      const order = getActiveOrder();
+      const p = order.providers[idx];
+      setStep(5);
+      toast(`Proveedor seleccionado: ${p.name} (${formatCOP(p.price)}/kg)`);
+    }
+
+    function adjustQuantity(delta) {
+      let newQty = activeQty + delta;
+      if (newQty < 1) newQty = 1;
+      activeQty = newQty;
+      setStep(5);
+    }
+
+    function setCustomQuantity(val) {
+      const parsed = parseInt(val, 10);
+      if (!isNaN(parsed) && parsed > 0) {
+        activeQty = parsed;
+      }
+      setStep(5);
+    }
+
+    function promptQuantity() {
+      const current = activeQty;
+      const val = prompt("Ingresa la cantidad en kg que deseas autorizar para reponer:", current);
+      if (val !== null) {
+        const parsed = parseInt(val, 10);
+        if (!isNaN(parsed) && parsed > 0) {
+          activeQty = parsed;
+          setStep(5);
+          toast(`Cantidad modificada a ${activeQty} kg`);
+        }
+      }
+    }
+
+    function rejectProposal() {
+      isProposalRejected = true;
+      setStep(5);
+      toast("La propuesta fue rechazada por Gerencia");
+    }
+
+    function reconsiderProposal() {
+      isProposalRejected = false;
+      setStep(5);
+    }
+
+    /* Modal Handlers */
+    function openDecisionModal() {
+      const order = getActiveOrder();
+      const p = order.providers[activeProviderIndex];
+      const cost = activeQty * p.price;
+
+      document.getElementById("modalQty").innerText = `${activeQty} kg`;
+      document.getElementById("modalCost").innerText = `${formatCOP(cost)} COP`;
+      document.getElementById("modalSupplier").innerText = p.name;
+      document.getElementById("decisionModal").classList.add("open");
+    }
+
+    function closeDecisionModal() {
+      document.getElementById("decisionModal").classList.remove("open");
+    }
+
+    function confirmApprovalByNataly() {
+      closeDecisionModal();
+      toast("✓ Reposición aprobada por María Camila Jiménez — Gerencia");
+      setStep(7);
+    }
+
+    /* Initial Load */
+    document.addEventListener("DOMContentLoaded", () => {
+      selectOrder(1);
+    });
+  </script>
+</body>
+</html>

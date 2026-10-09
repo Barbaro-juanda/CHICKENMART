@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chickenmart · Demo integrada</title>
+<style>
+  :root{
+    --vino:#7D0608; --vino-2:#5c0406; --crema:#FFE6C1; --negro:#070A11; --hueso:#FCF7F5;
+    --texto:#070A11; --suave:#5b5f69; --borde:#e8dcd2; --card:#ffffff;
+    --ok:#1f7a45; --ok-bg:#e7f5ec; --alerta:#9a5b00; --alerta-bg:#fff3dc; --error:#b3261e; --error-bg:#fde8e7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--hueso);color:var(--texto);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  header{background:var(--vino);color:var(--hueso);padding:20px 24px}
+  header h1{margin:0;font-size:22px}
+  header p{margin:4px 0 0;color:var(--crema);font-size:14px}
+  .aviso{background:var(--crema);color:var(--negro);padding:8px 24px;font-size:13px;border-bottom:1px solid var(--borde)}
+  .wrap{max-width:1200px;margin:0 auto;padding:20px 16px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px}
+  @media (max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}}
+  .card{background:var(--card);border:1px solid var(--borde);border-radius:12px;padding:18px;min-width:0;overflow-x:auto}
+  @media (max-width:520px){.saldo{grid-template-columns:repeat(2,1fr)} .wrap{padding:16px}}
+  .pasos{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+  .paso{border:1px solid var(--borde);background:#fff;border-radius:999px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--suave)}
+  .paso.act{background:var(--vino);color:#fff;border-color:var(--vino)}
+  .paso.hecho{background:var(--crema);color:var(--negro)}
+  .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:6px;background:var(--crema);color:var(--vino)}
+  h2{margin:8px 0 6px;font-size:20px}
+  .quien{font-size:13px;color:var(--suave);margin:0 0 10px}
+  .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  button.b{border:0;border-radius:8px;padding:9px 14px;font-weight:700;cursor:pointer;background:var(--vino);color:#fff}
+  button.b.sec{background:#fff;color:var(--vino);border:1px solid var(--vino)}
+  button.b:disabled{opacity:.45;cursor:not-allowed}
+  .msg{margin-top:12px;padding:10px 12px;border-radius:8px;font-size:14px}
+  .msg.ok{background:var(--ok-bg);color:var(--ok)} .msg.al{background:var(--alerta-bg);color:var(--alerta)} .msg.er{background:var(--error-bg);color:var(--error)}
+  .saldo{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .kpi{background:var(--hueso);border:1px solid var(--borde);border-radius:10px;padding:10px;text-align:center}
+  .kpi b{display:block;font-size:22px} .kpi span{font-size:12px;color:var(--suave)}
+  .kpi.v{background:var(--vino);color:#fff;border-color:var(--vino)} .kpi.v span{color:var(--crema)}
+  .formula{font-family:ui-monospace,Consolas,monospace;font-size:13px;margin:8px 0 0;color:var(--suave)}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{padding:6px 6px;border-bottom:1px solid var(--borde);text-align:left;vertical-align:top}
+  th{color:var(--suave);font-weight:600}
+  td.n{text-align:right;font-family:ui-monospace,Consolas,monospace}
+  .tbl{max-height:320px;overflow:auto}
+  .visor{background:var(--negro);color:#7CFC9A;font-family:ui-monospace,Consolas,monospace;font-size:28px;padding:12px;border-radius:10px;text-align:center}
+  label{font-size:13px;color:var(--suave)} input{font:inherit;padding:6px 8px;border:1px solid var(--borde);border-radius:6px;width:90px}
+  .fila{display:flex;gap:14px;flex-wrap:wrap;align-items:end;margin-top:10px}
+  .alerta{border-left:4px solid var(--alerta);background:var(--alerta-bg);padding:8px 10px;border-radius:6px;font-size:13px;margin-top:6px}
+  .bar{display:flex;height:22px;border-radius:6px;overflow:hidden;margin-top:10px;background:#eee}
+  .bar div{height:100%}
+  .leyenda{display:flex;gap:12px;font-size:12px;color:var(--suave);margin-top:4px;flex-wrap:wrap}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+  footer{max-width:1200px;margin:0 auto;padding:0 16px 30px;color:var(--suave);font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Chickenmart conectado · Demo integrada</h1>
+  <p>Del peso recibido a la disponibilidad de venta: recepción, reservas, alertas, agentes, Data Hub y gemelo sobre un mismo registro de movimientos.</p>
+</header>
+<div class="aviso"><b>Datos ficticios.</b> Prototipo académico que une las demos de Juan David (recepción y reservas), Nataly (agentes) y Orozco (Data Hub y gemelo). Validación real: en el piloto el peso se lee en el visor de la báscula de piso y lo confirma el operador; Siigo es el inventario de referencia.</div>
+
+<div class="wrap">
+  <section class="card">
+    <div class="pasos" id="pasos"></div>
+    <div id="etapa"></div>
+  </section>
+
+  <aside style="display:flex;flex-direction:column;gap:20px">
+    <div class="card">
+      <span class="tag">Inventario central · Pechuga (PCH-001)</span>
+      <div class="saldo" style="margin-top:10px">
+        <div class="kpi"><b id="kF">0</b><span>Físico kg</span></div>
+        <div class="kpi"><b id="kR">0</b><span>Reservado kg</span></div>
+        <div class="kpi"><b id="kB">0</b><span>Bloqueado kg</span></div>
+        <div class="kpi v"><b id="kV">0</b><span>Vendible kg</span></div>
+      </div>
+      <div class="bar" id="bar"></div>
+      <div class="leyenda">
+        <span><i class="dot" style="background:#7D0608"></i>Vendible</span>
+        <span><i class="dot" style="background:#d9a46a"></i>Reservado</span>
+        <span><i class="dot" style="background:#9aa0a6"></i>Bloqueado</span>
+      </div>
+      <p class="formula">vendible = físico − reservado − bloqueado − colchón (0, no adoptado)</p>
+      <div id="alertas"></div>
+    </div>
+    <div class="card">
+      <span class="tag">Data Hub · libro de movimientos</span>
+      <div class="tbl" style="margin-top:8px">
+        <table><thead><tr><th>ID</th><th>Tipo</th><th>Canal / quién</th><th class="n">Δ fís.</th><th class="n">Δ res.</th><th class="n">Δ bloq.</th></tr></thead>
+        <tbody id="libro"></tbody></table>
+      </div>
+      <div class="btns"><button class="b sec" onclick="descargarCSV()">Descargar movimientos.csv</button></div>
+    </div>
+  </aside>
+</div>
+<footer>Proyecto académico de transformación digital · Chickenmart S.A.S. · Todas las cifras, clientes, proveedores y precios son ficticios.</footer>
+
+<script>
+// ---------------- estado: libro de movimientos (misma lógica que demo/inventario.py) ----------------
+const MINIMO = 8;           // umbral de alerta A3 (SUPUESTO)
+const TOL = 0.05;           // tolerancia de peso final (SUPUESTO)
+let movs = [], claves = new Set(), pedidos = {}, n = 0, paso = 0, hechos = new Set(), aprobado = false, compraKg = 0;
+
+function saldo(){
+  let f=0,r=0,b=0; for(const m of movs){f+=m.df;r+=m.dr;b+=m.db;}
+  const rd=x=>Math.round(x*100)/100; f=rd(f);r=rd(r);b=rd(b);
+  return {f,r,b,v:rd(f-r-b)};
+}
+function mov(tipo,quien,df,dr,db,clave,detalle){
+  if(clave && claves.has(clave)) return false;
+  if(clave) claves.add(clave);
+  movs.push({id:'MOV-'+String(++n).padStart(3,'0'),tipo,quien,df,dr,db,detalle:detalle||'',momento:new Date().toISOString()});
+  pintar(); return true;
+}
+function reservar(pid,canal,kg){
+  const s=saldo();
+  if(pedidos[pid]) return {ok:false,msg:`Pedido ${pid} ya existe: no se reserva dos veces.`};
+  if(kg>s.v) return {ok:false,msg:`Pide ${kg} kg y solo hay ${s.v} kg vendibles. Se ofrece ajustar o escalar.`};
+  pedidos[pid]={canal,kg,estado:'RESERVADO'};
+  mov('RESERVA',canal,0,kg,0,'RES-'+pid,pid); return {ok:true};
+}
+const fmt=x=>(Math.round(x*100)/100).toLocaleString('es-CO');
+
+function pintar(){
+  const s=saldo();
+  kF.textContent=fmt(s.f);kR.textContent=fmt(s.r);kB.textContent=fmt(s.b);kV.textContent=fmt(s.v);
+  const tot=Math.max(s.f,0.0001);
+  bar.innerHTML=`<div style="width:${s.v/tot*100}%;background:#7D0608"></div><div style="width:${s.r/tot*100}%;background:#d9a46a"></div><div style="width:${s.b/tot*100}%;background:#9aa0a6"></div>`;
+  libro.innerHTML=movs.slice().reverse().map(m=>`<tr><td>${m.id}</td><td>${m.tipo}</td><td>${m.quien}</td><td class="n">${m.df?fmt(m.df):''}</td><td class="n">${m.dr?fmt(m.dr):''}</td><td class="n">${m.db?fmt(m.db):''}</td></tr>`).join('');
+  alertas.innerHTML = (movs.length && s.v<MINIMO) ? `<div class="alerta"><b>A3 · Alerta de mínimo</b> → administradora: vendible ${fmt(s.v)} kg &lt; mínimo ${MINIMO} kg (supuesto).</div>` : '';
+}
+function descargarCSV(){
+  const h='mov_id,tipo,canal,delta_fisico,delta_reservado,delta_bloqueado,detalle,momento\n';
+  const csv=h+movs.map(m=>[m.id,m.tipo,m.quien,m.df,m.dr,m.db,'"'+m.detalle+'"',m.momento].join(',')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='movimientos.csv';a.click();
+}
+
+// ---------------- etapas ----------------
+const ETAPAS=[
+ {t:'1 · Recepción y pesaje',quien:'A1 · Juan David',render:()=>`
+   <p>Llega pechuga del Proveedor A (ficticio), lote L-1007, vence 10-oct. El operador elige el SKU, lee el peso en el visor de la báscula de piso (o toma foto del visor) y lo confirma. Se descuenta la tara de la canastilla.</p>
+   <div class="visor">21,62 kg</div>
+   <div class="fila"><label>Bruto kg<br><input id="bru" value="21.62"></label><label>Tara kg<br><input id="tar" value="1.62"></label></div>
+   <div class="btns"><button class="b" onclick="recibir('CAP-0001',+bru.value,+tar.value)">Confirmar recepción</button>
+   <button class="b sec" onclick="recibir('CAP-0001',+bru.value,+tar.value)">Reenviar la misma captura (prueba de duplicado)</button></div>
+   <div id="out"></div>`},
+ {t:'2 · Reservas entre canales',quien:'A2 · Juan David',render:()=>`
+   <p>La web reserva 2,5 kg y WhatsApp 1,5 kg. La administradora bloquea 1 kg por empaque dañado. Después, web y WhatsApp intentan reservar 10 kg al mismo tiempo.</p>
+   <div class="btns"><button class="b" onclick="reservasBase()">Registrar reservas y bloqueo</button>
+   <button class="b sec" onclick="simultaneas()">Dos reservas simultáneas de 10 kg</button></div>
+   <div id="out"></div>`},
+ {t:'3 · Pedido grande',quien:'G2 · Atención y pedidos · Nataly',render:()=>`
+   <p>Un restaurante (ficticio) pide <b>18 kg</b> por WhatsApp. El agente consulta el inventario central antes de confirmar: no promete lo que no hay.</p>
+   <div class="btns"><button class="b" onclick="pedidoGrande()">El agente consulta y reserva</button></div>
+   <div id="out"></div>`},
+ {t:'4 · Propuesta de compra',quien:'G1 · Abastecimiento · Nataly',render:()=>{
+   const fal=pedidos['WA-300']?pedidos['WA-300'].pendiente:3; compraKg=fal+MINIMO;
+   return `<p>El agente detecta el faltante del pedido y la alerta de mínimo. Propone comprar <b>${fal} kg faltantes + ${MINIMO} kg de mínimo = ${compraKg} kg</b>.</p>
+   <table><thead><tr><th>Proveedor (ficticio)</th><th class="n">$/kg</th><th>Entrega</th></tr></thead><tbody>
+   <tr><td><b>Proveedor A</b> (recomendado)</td><td class="n">18.000</td><td>1 día</td></tr>
+   <tr><td>Proveedor B</td><td class="n">19.000</td><td>2 días</td></tr></tbody></table>
+   <p style="margin-top:10px">Costo estimado: <b>${compraKg} kg × $18.000 = $${(compraKg*18000).toLocaleString('es-CO')}</b> (ficticio).</p>
+   <div class="btns"><button class="b" onclick="aprobar(true)">Aprobar (María Camila Jiménez · Gerencia)</button>
+   <button class="b sec" onclick="aprobar(false)">Rechazar</button></div><div id="out"></div>`}},
+ {t:'5 · Recepción de la compra',quien:'A1 · Juan David',render:()=>`
+   <p>Llega la compra aprobada. Se pesa, se confirma y se completa la reserva pendiente del restaurante.</p>
+   <div class="visor">${fmt(compraKg+1)} kg</div>
+   <div class="fila"><label>Bruto kg<br><input id="bru2" value="${compraKg+1}"></label><label>Tara kg<br><input id="tar2" value="1"></label></div>
+   <div class="btns"><button class="b" ${aprobado?'':'disabled'} onclick="recibirCompra()">Confirmar recepción y completar reserva</button></div>
+   ${aprobado?'':'<div class="msg al">Primero Gerencia debe aprobar la compra (paso 4).</div>'}<div id="out"></div>`},
+ {t:'6 · Despacho con peso real',quien:'A2 · Juan David',render:()=>`
+   <p>Se alistan los 18 kg reservados. El peso real es <b>17,8 kg</b> (−1,1 %, dentro de la tolerancia supuesta de ±5 %). Un solo movimiento descuenta el físico y consume la reserva: no hay doble descuento. La salida se registra cuando el pedido sale en la moto.</p>
+   <div class="btns"><button class="b" onclick="despachar('WA-300',17.8)">Registrar salida</button></div><div id="out"></div>`},
+ {t:'7 · Control operativo',quien:'G3 · Control operativo · Nataly',render:()=>{
+   const resEv=saldo().r, resPed=Object.values(pedidos).filter(p=>p.estado==='RESERVADO').reduce((a,p)=>a+p.kg,0);
+   const ok=Math.abs(resEv-resPed)<1e-9;
+   return `<p>El agente revisa que el libro y los pedidos coincidan y cierra el seguimiento.</p>
+   <table><tbody>
+   <tr><td>Reservas en movimientos</td><td class="n">${fmt(resEv)} kg</td></tr>
+   <tr><td>Reservas en pedidos abiertos</td><td class="n">${fmt(resPed)} kg</td></tr>
+   <tr><td>Diferencia</td><td class="n"><b>${fmt(resEv-resPed)} kg</b></td></tr>
+   <tr><td>Recepciones duplicadas</td><td class="n">0 (bloqueadas por ID de captura)</td></tr></tbody></table>
+   <div class="msg ${ok?'ok':'er'}">${ok?'✓ Todo coincide. Incidencia cerrada; ningún ajuste se hizo sin aprobación.':'Hay diferencia: abrir incidencia.'}</div>`}},
+ {t:'8 · Gemelo: ¿cuándo comprar?',quien:'Gemelo digital · Orozco',render:()=>`
+   <p>Modelo de Orozco para pechuga: 15 kg libres, 5 días, demanda diaria y una compra que llega cierto día. Los lotes vencen al cierre del día 3 (inicial) y del día 4 (compra). Cambia un valor y compara.</p>
+   <div class="fila"><label>Demanda kg/día<br><input id="gd" value="8"></label><label>Llega el día (0–4)<br><input id="ga" value="2"></label><label>Compra kg<br><input id="gq" value="30"></label>
+   <button class="b" onclick="simular()">Simular</button></div>
+   <div id="gout" style="margin-top:12px"></div>
+   <p class="formula">Referencias de Orozco: base 1/6 · demanda 12 → 15/0 · llega día 4 → 17/22 · compra 50 → 1/26 · 25 kg el día 1 → 0/0 (faltante/merma kg).</p>`},
+];
+
+// ---------------- acciones ----------------
+function out(cls,txt){const o=document.getElementById('out');if(o)o.innerHTML+=`<div class="msg ${cls}">${txt}</div>`;}
+function recibir(cap,bruto,tara){
+  if(!(tara>=0 && tara<bruto)) return out('er','Tara inválida: revisar antes de registrar.');
+  const neto=Math.round((bruto-tara)*100)/100;
+  if(mov('RECEPCION','Recepción · operador',neto,0,0,cap,`bruto ${bruto} − tara ${tara}`)) {out('ok',`Entrada única: ${fmt(bruto)} − ${fmt(tara)} = <b>${fmt(neto)} kg</b>.`);hechos.add(0);}
+  else out('al','Captura ya registrada: el reintento se ignora y el saldo no cambia.');
+}
+function reservasBase(){
+  if(!saldo().f) return out('er','Primero registra la recepción (paso 1).');
+  const a=reservar('WEB-101','web',2.5), b=reservar('WA-201','WhatsApp',1.5);
+  if(a.ok||b.ok){ mov('BLOQUEO','Administradora',0,0,1,'BLQ-1','empaque dañado'); out('ok',`20 − 4 − 1 = <b>${fmt(saldo().v)} kg vendibles</b>.`); hechos.add(1);}
+  else out('al','Las reservas ya estaban registradas.');
+}
+function simultaneas(){
+  if(pedidos['WEB-102']||pedidos['WA-202']) return out('al','La prueba ya se hizo.');
+  // las dos solicitudes llegan a la vez; el inventario central las atiende una por una en transacción
+  const r1=reservar('WEB-102','web',10); const r2=reservar('WA-202','WhatsApp',10);
+  out(r1.ok&&!r2.ok?'ok':'er',`Web: ${r1.ok?'reservado':'rechazado'} · WhatsApp: ${r2.ok?'reservado':'rechazado ('+r2.msg+')'}. Solo una gana.`);
+  // se cancela la ganadora para seguir el caso con 15 kg vendibles
+  setTimeout(()=>{pedidos['WEB-102'].estado='CANCELADO';mov('LIBERACION','web',0,-10,0,'LIB-WEB-102','cliente canceló');out('ok','El cliente web cancela: se liberan 10 kg (vuelven 15 kg vendibles).');},600);
+}
+function pedidoGrande(){
+  if(pedidos['WA-300']) return out('al','El pedido ya fue procesado.');
+  const v=saldo().v, pide=18, res=Math.min(v,pide);
+  if(res<=0) return out('er','No hay saldo vendible.');
+  pedidos['WA-300']={canal:'WhatsApp · agente G2',kg:res,estado:'RESERVADO',pendiente:Math.round((pide-res)*100)/100};
+  mov('RESERVA','WhatsApp · agente G2',0,res,0,'RES-WA-300','reserva parcial');
+  out('al',`Pide ${pide} kg, hay ${fmt(v)} vendibles. Reserva parcial de <b>${fmt(res)} kg</b>; faltan <b>${fmt(pide-res)} kg</b>. El agente avisa al cliente y escala a Abastecimiento.`);
+}
+function aprobar(si){
+  aprobado=si;
+  out(si?'ok':'al', si?'Compra aprobada por María Camila Jiménez (Gerencia). La IA propuso; la persona decidió.':'Propuesta rechazada: no se emite orden ni se gasta dinero.');
+}
+function recibirCompra(){
+  const bruto=+bru2.value,tara=+tar2.value,neto=Math.round((bruto-tara)*100)/100;
+  if(!mov('RECEPCION','Recepción · operador',neto,0,0,'CAP-0002',`compra aprobada, bruto ${bruto} − tara ${tara}`)) return out('al','Esta recepción ya se registró.');
+  const p=pedidos['WA-300'];
+  if(p&&p.pendiente>0){mov('RESERVA','WhatsApp · agente G2',0,p.pendiente,0,'RES-WA-300b','completa reserva');p.kg+=p.pendiente;p.pendiente=0;}
+  out('ok',`Entrada de ${fmt(neto)} kg. Reserva del restaurante completa: 18 kg. Compra registrada en Siigo una sola vez (manual en el piloto).`);
+}
+function despachar(pid,real){
+  const p=pedidos[pid]; if(!p||p.estado!=='RESERVADO') return out('er','El pedido no está reservado completo (revisa los pasos 3 y 5).');
+  if(Math.abs(real-p.kg)/p.kg>TOL) return out('al','Fuera de tolerancia: el cliente debe aceptar el nuevo valor.');
+  mov('SALIDA','WhatsApp · moto',-real,-p.kg,0,'SAL-'+pid,`reservado ${p.kg}, real ${real}`); p.estado='DESPACHADO';
+  out('ok',`Salida: físico −${fmt(real)} kg y reserva −${fmt(p.kg)} kg en el mismo movimiento.`);
+}
+function simular(){
+  const d=+gd.value,a=+ga.value,q=+gq.value;
+  let L1=15,L2=0,ven=0,fal=0,mer=0,dias=0,rows='';
+  for(let t=0;t<5;t++){
+    const ini=L1+L2; if(t===a)L2+=q;
+    let need=d,x=Math.min(L1,need);L1-=x;need-=x;let y=Math.min(L2,need);L2-=y;need-=y;
+    const v=x+y;ven+=v;fal+=need;if(need>0)dias++;
+    let m=0;if(t===3){m+=L1;L1=0;} if(t===4){m+=L2;L2=0;} mer+=m;
+    rows+=`<tr><td>${t}</td><td class="n">${fmt(ini)}</td><td class="n">${t===a?fmt(q):0}</td><td class="n">${fmt(v)}</td><td class="n">${fmt(need)}</td><td class="n">${fmt(m)}</td></tr>`;
+  }
+  gout.innerHTML=`<div class="saldo"><div class="kpi"><b>${fmt(d*5)}</b><span>Demanda kg</span></div><div class="kpi"><b>${fmt(ven)}</b><span>Venta kg</span></div><div class="kpi v"><b>${fmt(fal)}</b><span>Faltante kg</span></div><div class="kpi"><b>${fmt(mer)}</b><span>Merma kg</span></div></div>
+  <table style="margin-top:10px"><thead><tr><th>Día</th><th class="n">Inicial</th><th class="n">Entrada</th><th class="n">Venta</th><th class="n">Faltante</th><th class="n">Merma</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+// ---------------- navegación ----------------
+function ir(i){
+  paso=i;
+  pasos.innerHTML=ETAPAS.map((e,k)=>`<button class="paso ${k===i?'act':''} ${k<i?'hecho':''}" onclick="ir(${k})">${e.t}</button>`).join('');
+  const e=ETAPAS[i];
+  etapa.innerHTML=`<span class="tag">${e.quien}</span><h2>${e.t}</h2>${e.render()}
+   <div class="btns" style="margin-top:18px">${i>0?`<button class="b sec" onclick="ir(${i-1})">← Anterior</button>`:''}${i<ETAPAS.length-1?`<button class="b sec" onclick="ir(${i+1})">Siguiente →</button>`:''}</div>`;
+  if(i===ETAPAS.length-1) simular();
+}
+ir(0); pintar();
+</script>
+</body>
+</html>

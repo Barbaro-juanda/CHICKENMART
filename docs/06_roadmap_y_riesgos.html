@@ -1,0 +1,57 @@
+<html><body>
+<h1>Chickenmart: roadmap y matriz de riesgos</h1>
+<p><b>Conclusión:</b> el proyecto avanza por fases y cada una se aprueba solo cuando cumple su criterio de cierre. Primero se asegura un registro confiable de lo recibido (sin comprar hardware), después se conecta la báscula y Siigo, y al final se incorporan canales, IA, agentes y simulación. Los riesgos más altos son la báscula sin salida de datos comprobada, la doble entrada entre la herramienta de recepción y Siigo, y las ventas que no se registran.</p>
+<p><b>Fuentes:</b> propuesta de María Camila Jiménez al desarrollador (etapas y tiempos preliminares), documento base del equipo y secciones de Juan David, Carolina, Orozco y Nataly. Los días son estimaciones preliminares de planeación, no una cotización ni un plazo garantizado. Se separa el cronograma académico del plazo de implementación en la empresa.</p>
+
+<h2>Roadmap de implementación en Chickenmart</h2>
+<table border="1">
+<tr><th>Fase</th><th>Qué se hace</th><th>Responsable</th><th>Duración estimada</th><th>Depende de</th><th>Criterio para avanzar</th></tr>
+<tr><td>0. Validación del flujo y compatibilidad</td><td>Revisar una recepción real, catálogo y unidades en Siigo (kg y UND), documentos, manejo de diferencias, modelo de las básculas y permisos de integración.</td><td>Desarrollador con María Camila; apoyo de Juan David (proceso y báscula) y Santiago (reglas)</td><td>3 a 5 días hábiles</td><td>Acceso a Siigo y a las básculas</td><td>Ninguna ambigüedad de unidad o de registro duplicado en los productos del piloto; decisión técnica sobre la báscula.</td></tr>
+<tr><td>1. Piloto digital con captura manual (A1)</td><td>Registro de recepción que relaciona orden, factura y verificación física; peso digitado desde el visor; resumen validado para registrar la compra en Siigo manualmente.</td><td>Desarrollador; operador de recepción; María Camila aprueba</td><td>5 a 10 días hábiles</td><td>Fase 0 cerrada</td><td>Una recepción conforme y otra con diferencias completadas y conciliadas con Siigo; una sola compra por recepción.</td></tr>
+<tr><td>1b. Prueba de foto del visor (opcional)</td><td>Leer el peso desde una foto del visor con confirmación obligatoria del operador.</td><td>Desarrollador</td><td>Por cotizar aparte</td><td>Fase 1 en marcha</td><td>Coincidencia medida frente a lectura humana en una muestra acordada; sin aprobación automática.</td></tr>
+<tr><td>2. Pesaje conectado</td><td>Capturar peso estable y tara desde la báscula; conservar entrada manual como contingencia.</td><td>Desarrollador; proveedor de básculas</td><td>5 a 10 días hábiles, tras comprobar la interfaz</td><td>Prueba real de salida de datos; aclarar la advertencia de la báscula de piso</td><td>Conector probado con la báscula real; si no hay salida compatible, cotizar adaptador o reemplazo antes de aprobar.</td></tr>
+<tr><td>3. Registro asistido con la API de Siigo</td><td>Preparar la compra desde la recepción aprobada y enviarla una sola vez (POST /v1/purchases), con aprobación humana.</td><td>Desarrollador; responsable contable</td><td>10 a 15 días hábiles</td><td>Permisos de API y catálogo disponibles</td><td>Integración probada, reintento sin duplicados, comprobante y saldo verificados en Siigo.</td></tr>
+<tr><td>4. Canales y reservas (A2) y alertas (A3)</td><td>Disponibilidad común para punto, web y WhatsApp; reservas, salida real y cancelaciones; alertas de mínimo y vencimiento; venta web por bolsas cerradas con cobro después de validar.</td><td>Desarrollador; Juan David (reglas); administradora</td><td>Por cotizar</td><td>Fases 1 a 3 estables; acceso técnico a la web</td><td>Dos pedidos que compiten por el último saldo no generan sobreventa; alertas con responsable y cierre.</td></tr>
+<tr><td>5. Data Hub y tablero</td><td>Carga por cortes de movimientos y pedidos; tablero de existencias, reservas, merma y alertas con fecha de actualización.</td><td>Orozco; Carolina (licencias y costos)</td><td>Por cotizar</td><td>Movimientos confiables de las fases anteriores</td><td>Controles de reservas y ventas en cero; tablero con última carga visible.</td></tr>
+<tr><td>6. IA y agentes</td><td>IA1–IA3 con histórico suficiente; agentes G1–G3 con permisos y aprobación humana.</td><td>Carolina (IA); Nataly (agentes); María Camila aprueba</td><td>Por cotizar</td><td>Histórico útil y comparación contra referencia simple</td><td>Ninguna compra o ajuste sin aprobación; falsos positivos medidos.</td></tr>
+<tr><td>7. Gemelo digital</td><td>Escenarios de demanda, retraso de proveedor y compra frente a vencimiento validados con un período real.</td><td>Orozco</td><td>Por cotizar</td><td>Datos reales de movimientos y conteos</td><td>El modelo reproduce un período real y explica sus diferencias por lote.</td></tr>
+</table>
+<p>Total preliminar: fases 0 y 1 entre 8 y 15 días hábiles; hasta la fase 3 entre 23 y 40 días hábiles en secuencia. Excluye espera de permisos, compra de equipos, correcciones del proveedor y cambios de alcance. Las fases 4 a 7 se cotizan por separado.</p>
+
+<h3>Indicadores para decidir si se avanza</h3>
+<ul>
+<li>Tiempo de recepción y digitación (min por recepción).</li>
+<li>Diferencias detectadas entre pedido, factura y recibido.</li>
+<li>Demora hasta el registro en Siigo.</li>
+<li>Diferencia físico vs. registro (kg por SKU) y pedidos afectados por agotados.</li>
+<li>Kg de merma por vencimiento.</li>
+</ul>
+<p>Las metas se fijan después de medir la línea base; no se prometen ahorros.</p>
+
+<h3>Cronograma académico (separado)</h3>
+<ul>
+<li>Contenido de cada bloque terminado: hecho (Santiago, Carolina, Juan David, Orozco, Nataly).</li>
+<li>Integración del documento final: Santiago.</li>
+<li>Presentación final: Juan David (diseño); exponen todos; María Camila presenta la validación real y las conclusiones.</li>
+<li>Ensayo con cronómetro el día anterior a la entrega.</li>
+</ul>
+
+<h2>Matriz de riesgos y controles</h2>
+<p><b>Escala:</b> probabilidad e impacto de 1 (bajo) a 3 (alto). Nivel = probabilidad × impacto: 1–2 bajo, 3–4 medio, 6–9 alto. Las calificaciones son estimaciones del equipo para priorizar, no mediciones.</p>
+<table border="1">
+<tr><th>Riesgo</th><th>Causa</th><th>P</th><th>I</th><th>Nivel</th><th>Control</th><th>Responsable</th><th>Contingencia</th></tr>
+<tr><td>La báscula no puede conectarse</td><td>No se identifica salida de datos; advertencia de uso en la báscula de piso</td><td>3</td><td>2</td><td>6 alto</td><td>Piloto con peso digitado; prueba real antes de comprar hardware</td><td>Desarrollador / Juan David</td><td>Foto del visor con confirmación o reemplazo cotizado</td></tr>
+<tr><td>Doble entrada de inventario</td><td>Herramienta de recepción y Siigo registran la misma compra</td><td>2</td><td>3</td><td>6 alto</td><td>Siigo es la referencia; la herramienta no crea otra entrada física; ID único por recepción</td><td>Desarrollador / Juan David</td><td>Conciliación y ajuste autorizado con trazabilidad</td></tr>
+<tr><td>Ventas no registradas</td><td>Pedidos de WhatsApp o mostrador fuera del sistema</td><td>3</td><td>2</td><td>6 alto</td><td>Sin registro no hay reserva ni salida; gestor común de pedidos</td><td>Administradora / Nataly</td><td>Conteo físico periódico y conciliación</td></tr>
+<tr><td>Unidad equivocada</td><td>Facturas con UND y KG; paquetes contados como kg</td><td>2</td><td>3</td><td>6 alto</td><td>Unidad configurada por SKU en Siigo; peso y conteo separados</td><td>Juan David / Orozco</td><td>Corrección con evento compensatorio</td></tr>
+<tr><td>Tara o producto incorrecto</td><td>Canastilla no descontada o SKU mal elegido</td><td>2</td><td>2</td><td>4 medio</td><td>Taras registradas por recipiente; confirmación humana</td><td>Operador de recepción</td><td>Ajuste autorizado que referencia el original</td></tr>
+<tr><td>Sobreventa entre canales</td><td>Dos canales reservan el mismo saldo</td><td>2</td><td>3</td><td>6 alto</td><td>Reserva atómica que valida y escribe a la vez</td><td>Desarrollador / Juan David</td><td>Contactar al cliente y ofrecer ajuste</td></tr>
+<tr><td>Corte de internet</td><td>Conectividad inestable en la tienda</td><td>2</td><td>2</td><td>4 medio</td><td>Captura pendiente con ID; caja con límite conservador</td><td>Desarrollador</td><td>Registro manual y conciliación al reconectar</td></tr>
+<tr><td>Tablero desactualizado</td><td>Carga por cortes</td><td>2</td><td>1</td><td>2 bajo</td><td>Última carga visible; el tablero no autoriza ventas</td><td>Orozco</td><td>Consultar el inventario operativo</td></tr>
+<tr><td>IA con poco histórico o falsas alertas</td><td>Datos escasos o incompletos</td><td>3</td><td>1</td><td>3 medio</td><td>Comparar contra referencia simple; revisión humana</td><td>Carolina</td><td>Volver a reglas mientras se recopilan datos</td></tr>
+<tr><td>Agente actúa sin permiso</td><td>Permisos mal definidos</td><td>1</td><td>3</td><td>3 medio</td><td>Compras, descuentos y ajustes requieren aprobación de gerencia</td><td>Nataly / María Camila</td><td>Revertir con registro y revisar permisos</td></tr>
+<tr><td>Compra tardía o lote corto</td><td>Retraso del proveedor o poca vida útil</td><td>2</td><td>2</td><td>4 medio</td><td>Revisar plazo y vencimiento antes de aprobar (gemelo)</td><td>María Camila / Orozco</td><td>Proveedor alterno autorizado</td></tr>
+<tr><td>Pago web tardío tras vencer la reserva</td><td>Cliente paga cuando las bolsas ya se liberaron</td><td>2</td><td>2</td><td>4 medio</td><td>Vigencia de reserva definida; nueva validación antes de cobrar</td><td>Desarrollador / administradora</td><td>Ofrecer otra combinación o devolver el pago</td></tr>
+<tr><td>Costos o plazos mayores</td><td>Alcance sin cotizar; permisos que tardan</td><td>2</td><td>2</td><td>4 medio</td><td>Aprobar por fases con cotización y criterios de cierre</td><td>Carolina / María Camila</td><td>Reducir alcance del piloto</td></tr>
+</table>
+</body></html>
