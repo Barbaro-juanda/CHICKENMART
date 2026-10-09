@@ -1,0 +1,38 @@
+// Crear una medida por bloque. CSV y nombres de tablas sin cambios.
+Fisico kg = SUM(Movimientos[DeltaFisicoKg])
+
+Reservado kg = SUM(Movimientos[DeltaReservaKg])
+
+Bloqueado kg = SUM(Movimientos[DeltaBloqueadoKg])
+
+Disponible kg = [Fisico kg] - [Reservado kg] - [Bloqueado kg]
+
+Ventas kg = CALCULATE(-SUM(Movimientos[DeltaFisicoKg]), Movimientos[Tipo] = "Despacho")
+
+Merma kg = CALCULATE(-SUM(Movimientos[DeltaFisicoKg]), Movimientos[Tipo] = "Merma")
+
+Merma vencimiento kg = COALESCE(CALCULATE(-SUM(Movimientos[DeltaFisicoKg]), Movimientos[Tipo] = "Merma", Movimientos[Motivo] = "Vencimiento"), 0)
+
+Ventas pedidos kg = SUM(Pedidos[VendidoKg])
+
+Reservas pedidos kg = SUM(Pedidos[ReservaVigenteKg])
+
+Control reserva kg = [Reservado kg] - [Reservas pedidos kg]
+
+Control ventas kg = [Ventas kg] - [Ventas pedidos kg]
+
+Pedidos registrados = DISTINCTCOUNT(Pedidos[PedidoID])
+
+Pedidos sin stock = CALCULATE(DISTINCTCOUNT(Pedidos[PedidoID]), Pedidos[Estado] = "Rechazado por stock")
+
+Tasa pedidos sin stock = DIVIDE([Pedidos sin stock], [Pedidos registrados])
+
+Ultima carga = MAX(Movimientos[ActualizadoEn])
+
+// Corte fijo de la demostracion. No usar TODAY para reproducir las cifras.
+Dias al vencimiento = DATEDIFF(DATE(2026,10,8), SELECTEDVALUE(Lotes[Vencimiento]), DAY)
+
+Lotes proximos = COUNTROWS(FILTER(VALUES(Lotes[LoteID]), CALCULATE(MAX(Lotes[Vencimiento])) >= DATE(2026,10,8) && CALCULATE(MAX(Lotes[Vencimiento])) <= DATE(2026,10,10) && CALCULATE([Fisico kg]) > 0))
+
+// Existencias a una fecha: usar como medida separada si se filtra historia.
+// Con estos CSV, el tablero de stock debe usar todos los eventos hasta el corte.

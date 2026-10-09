@@ -1,0 +1,18 @@
+﻿EventoID,LoteID,Tipo,DeltaFisicoKg,DeltaReservaKg,DeltaBloqueadoKg,PedidoID,Motivo,FechaHora,ActualizadoEn,Origen
+E001,L001,Recepcion,25,0,0,,Peso neto ficticio confirmado,2026-10-07T10:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E002,L002,Recepcion,18,0,0,,Peso neto ficticio confirmado,2026-10-07T10:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E003,L003,Recepcion,12,0,0,,Peso neto ficticio confirmado,2026-10-07T10:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E004,L001,Reserva,0,5,0,O001,,2026-10-08T12:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E005,L001,Despacho,-5,-5,0,O001,,2026-10-08T12:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E006,L002,Reserva,0,4,0,O002,,2026-10-08T12:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E007,L002,Despacho,-4,-4,0,O002,,2026-10-08T12:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E008,L003,Reserva,0,2,0,O003,,2026-10-08T12:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E009,L003,Despacho,-2,-2,0,O003,,2026-10-08T12:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E010,L001,Reserva,0,4,0,O004,,2026-10-08T12:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E011,L002,Reserva,0,2,0,O005,,2026-10-08T12:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E012,L003,Reserva,0,1,0,O006,,2026-10-08T12:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E013,L002,Reserva,0,3,0,O007,,2026-10-08T12:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E014,L002,Cancelacion,0,-3,0,O007,,2026-10-08T12:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E015,L003,Merma,-1,0,0,,Revision de calidad ficticia,2026-10-08T12:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E016,L001,Bloqueo,0,0,1,,Revision pendiente ficticia,2026-10-08T12:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia
+E017,L003,Bloqueo,0,0,1,,Revision pendiente ficticia,2026-10-08T12:00:00-05:00,2026-10-08T18:00:00-05:00,Demostracion ficticia

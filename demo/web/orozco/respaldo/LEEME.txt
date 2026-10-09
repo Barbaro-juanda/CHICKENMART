@@ -1,0 +1,18 @@
+CHICKENMART BLOQUE DE OROZCO
+Preparado con asistencia de IA el 8 de octubre de 2026.
+1. Abrir el Word. Contiene alcance, resultados, fuentes y guiones.
+2. Abrir Simulador_Chickenmart.html con un navegador. Funciona sin internet.
+3. En el tablero, filtrar P001: físico 20, reserva 4, bloqueo 1, libre 15.
+4. Caso base: demanda 8, llegada 2, compra 30: faltante 1, merma 6.
+5. Comparar demanda 12; llegada 4; compra 50, por separado.
+6. Para Power BI usar cuatro CSV de origen; no importar Saldos como otra
+   tabla de inventario. Crear relaciones y medidas según el Word.
+7. Power BI nativo y aporte personal de Orozco siguen pendientes.
+8. Los enlaces del Word a archivos locales funcionan al extraer todo el
+   paquete conservando la carpeta respaldo junto al Word y al HTML.
+9. No se ha publicado nada en Drive ni cambiado permisos.
+10. Los datos, SKU, plazos y fechas son ficticios; no indican vida útil real.
+El modelo solo simula demanda adicional de los 15 kg libres de P001.
+Cada pedido de muestra tiene una referencia y lote. La venta multi-lote
+necesita líneas de pedido adicionales antes de uso empresarial.
+Pruebas.csv documenta pruebas de cálculo y SQLite; no ejecuta DAX.

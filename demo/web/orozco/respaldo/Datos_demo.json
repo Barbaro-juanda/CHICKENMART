@@ -1,0 +1,434 @@
+{
+  "products": [
+    {
+      "SKU": "P001",
+      "Producto": "Pechuga ejemplo",
+      "Unidad": "kg"
+    },
+    {
+      "SKU": "P002",
+      "Producto": "Muslo ejemplo",
+      "Unidad": "kg"
+    },
+    {
+      "SKU": "P003",
+      "Producto": "Alas ejemplo",
+      "Unidad": "kg"
+    }
+  ],
+  "lots": [
+    {
+      "LoteID": "L001",
+      "SKU": "P001",
+      "Proveedor": "Proveedor ficticio A",
+      "Vencimiento": "2026-10-11",
+      "FisicoKg": 20,
+      "ReservadoKg": 4,
+      "BloqueadoKg": 1,
+      "DisponibleKg": 15,
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00"
+    },
+    {
+      "LoteID": "L002",
+      "SKU": "P002",
+      "Proveedor": "Proveedor ficticio A",
+      "Vencimiento": "2026-10-10",
+      "FisicoKg": 14,
+      "ReservadoKg": 2,
+      "BloqueadoKg": 0,
+      "DisponibleKg": 12,
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00"
+    },
+    {
+      "LoteID": "L003",
+      "SKU": "P003",
+      "Proveedor": "Proveedor ficticio B",
+      "Vencimiento": "2026-10-09",
+      "FisicoKg": 9,
+      "ReservadoKg": 1,
+      "BloqueadoKg": 1,
+      "DisponibleKg": 7,
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00"
+    }
+  ],
+  "movements": [
+    {
+      "EventoID": "E001",
+      "LoteID": "L001",
+      "Tipo": "Recepcion",
+      "DeltaFisicoKg": 25,
+      "DeltaReservaKg": 0,
+      "DeltaBloqueadoKg": 0,
+      "PedidoID": "",
+      "Motivo": "Peso neto ficticio confirmado",
+      "FechaHora": "2026-10-07T10:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E002",
+      "LoteID": "L002",
+      "Tipo": "Recepcion",
+      "DeltaFisicoKg": 18,
+      "DeltaReservaKg": 0,
+      "DeltaBloqueadoKg": 0,
+      "PedidoID": "",
+      "Motivo": "Peso neto ficticio confirmado",
+      "FechaHora": "2026-10-07T10:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E003",
+      "LoteID": "L003",
+      "Tipo": "Recepcion",
+      "DeltaFisicoKg": 12,
+      "DeltaReservaKg": 0,
+      "DeltaBloqueadoKg": 0,
+      "PedidoID": "",
+      "Motivo": "Peso neto ficticio confirmado",
+      "FechaHora": "2026-10-07T10:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E004",
+      "LoteID": "L001",
+      "Tipo": "Reserva",
+      "DeltaFisicoKg": 0,
+      "DeltaReservaKg": 5,
+      "DeltaBloqueadoKg": 0,
+      "PedidoID": "O001",
+      "Motivo": "",
+      "FechaHora": "2026-10-08T12:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E005",
+      "LoteID": "L001",
+      "Tipo": "Despacho",
+      "DeltaFisicoKg": -5,
+      "DeltaReservaKg": -5,
+      "DeltaBloqueadoKg": 0,
+      "PedidoID": "O001",
+      "Motivo": "",
+      "FechaHora": "2026-10-08T12:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E006",
+      "LoteID": "L002",
+      "Tipo": "Reserva",
+      "DeltaFisicoKg": 0,
+      "DeltaReservaKg": 4,
+      "DeltaBloqueadoKg": 0,
+      "PedidoID": "O002",
+      "Motivo": "",
+      "FechaHora": "2026-10-08T12:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E007",
+      "LoteID": "L002",
+      "Tipo": "Despacho",
+      "DeltaFisicoKg": -4,
+      "DeltaReservaKg": -4,
+      "DeltaBloqueadoKg": 0,
+      "PedidoID": "O002",
+      "Motivo": "",
+      "FechaHora": "2026-10-08T12:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E008",
+      "LoteID": "L003",
+      "Tipo": "Reserva",
+      "DeltaFisicoKg": 0,
+      "DeltaReservaKg": 2,
+      "DeltaBloqueadoKg": 0,
+      "PedidoID": "O003",
+      "Motivo": "",
+      "FechaHora": "2026-10-08T12:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E009",
+      "LoteID": "L003",
+      "Tipo": "Despacho",
+      "DeltaFisicoKg": -2,
+      "DeltaReservaKg": -2,
+      "DeltaBloqueadoKg": 0,
+      "PedidoID": "O003",
+      "Motivo": "",
+      "FechaHora": "2026-10-08T12:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E010",
+      "LoteID": "L001",
+      "Tipo": "Reserva",
+      "DeltaFisicoKg": 0,
+      "DeltaReservaKg": 4,
+      "DeltaBloqueadoKg": 0,
+      "PedidoID": "O004",
+      "Motivo": "",
+      "FechaHora": "2026-10-08T12:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E011",
+      "LoteID": "L002",
+      "Tipo": "Reserva",
+      "DeltaFisicoKg": 0,
+      "DeltaReservaKg": 2,
+      "DeltaBloqueadoKg": 0,
+      "PedidoID": "O005",
+      "Motivo": "",
+      "FechaHora": "2026-10-08T12:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E012",
+      "LoteID": "L003",
+      "Tipo": "Reserva",
+      "DeltaFisicoKg": 0,
+      "DeltaReservaKg": 1,
+      "DeltaBloqueadoKg": 0,
+      "PedidoID": "O006",
+      "Motivo": "",
+      "FechaHora": "2026-10-08T12:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E013",
+      "LoteID": "L002",
+      "Tipo": "Reserva",
+      "DeltaFisicoKg": 0,
+      "DeltaReservaKg": 3,
+      "DeltaBloqueadoKg": 0,
+      "PedidoID": "O007",
+      "Motivo": "",
+      "FechaHora": "2026-10-08T12:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E014",
+      "LoteID": "L002",
+      "Tipo": "Cancelacion",
+      "DeltaFisicoKg": 0,
+      "DeltaReservaKg": -3,
+      "DeltaBloqueadoKg": 0,
+      "PedidoID": "O007",
+      "Motivo": "",
+      "FechaHora": "2026-10-08T12:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E015",
+      "LoteID": "L003",
+      "Tipo": "Merma",
+      "DeltaFisicoKg": -1,
+      "DeltaReservaKg": 0,
+      "DeltaBloqueadoKg": 0,
+      "PedidoID": "",
+      "Motivo": "Revision de calidad ficticia",
+      "FechaHora": "2026-10-08T12:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E016",
+      "LoteID": "L001",
+      "Tipo": "Bloqueo",
+      "DeltaFisicoKg": 0,
+      "DeltaReservaKg": 0,
+      "DeltaBloqueadoKg": 1,
+      "PedidoID": "",
+      "Motivo": "Revision pendiente ficticia",
+      "FechaHora": "2026-10-08T12:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    },
+    {
+      "EventoID": "E017",
+      "LoteID": "L003",
+      "Tipo": "Bloqueo",
+      "DeltaFisicoKg": 0,
+      "DeltaReservaKg": 0,
+      "DeltaBloqueadoKg": 1,
+      "PedidoID": "",
+      "Motivo": "Revision pendiente ficticia",
+      "FechaHora": "2026-10-08T12:00:00-05:00",
+      "ActualizadoEn": "2026-10-08T18:00:00-05:00",
+      "Origen": "Demostracion ficticia"
+    }
+  ],
+  "orders": [
+    {
+      "PedidoID": "O001",
+      "LoteID": "L001",
+      "Canal": "WhatsApp",
+      "Estado": "Despachado",
+      "SolicitadoKg": 5,
+      "ReservaVigenteKg": 0,
+      "VendidoKg": 5,
+      "Fecha": "2026-10-08"
+    },
+    {
+      "PedidoID": "O002",
+      "LoteID": "L002",
+      "Canal": "Punto",
+      "Estado": "Despachado",
+      "SolicitadoKg": 4,
+      "ReservaVigenteKg": 0,
+      "VendidoKg": 4,
+      "Fecha": "2026-10-08"
+    },
+    {
+      "PedidoID": "O003",
+      "LoteID": "L003",
+      "Canal": "Web",
+      "Estado": "Despachado",
+      "SolicitadoKg": 2,
+      "ReservaVigenteKg": 0,
+      "VendidoKg": 2,
+      "Fecha": "2026-10-08"
+    },
+    {
+      "PedidoID": "O004",
+      "LoteID": "L001",
+      "Canal": "Web",
+      "Estado": "Reservado",
+      "SolicitadoKg": 4,
+      "ReservaVigenteKg": 4,
+      "VendidoKg": 0,
+      "Fecha": "2026-10-08"
+    },
+    {
+      "PedidoID": "O005",
+      "LoteID": "L002",
+      "Canal": "WhatsApp",
+      "Estado": "Reservado",
+      "SolicitadoKg": 2,
+      "ReservaVigenteKg": 2,
+      "VendidoKg": 0,
+      "Fecha": "2026-10-08"
+    },
+    {
+      "PedidoID": "O006",
+      "LoteID": "L003",
+      "Canal": "Punto",
+      "Estado": "Reservado",
+      "SolicitadoKg": 1,
+      "ReservaVigenteKg": 1,
+      "VendidoKg": 0,
+      "Fecha": "2026-10-08"
+    },
+    {
+      "PedidoID": "O007",
+      "LoteID": "L002",
+      "Canal": "Web",
+      "Estado": "Cancelado",
+      "SolicitadoKg": 3,
+      "ReservaVigenteKg": 0,
+      "VendidoKg": 0,
+      "Fecha": "2026-10-08"
+    },
+    {
+      "PedidoID": "O008",
+      "LoteID": "L001",
+      "Canal": "WhatsApp",
+      "Estado": "Rechazado por stock",
+      "SolicitadoKg": 18,
+      "ReservaVigenteKg": 0,
+      "VendidoKg": 0,
+      "Fecha": "2026-10-08"
+    }
+  ],
+  "results": [
+    {
+      "Escenario": "Base",
+      "DemandaDiariaKg": 8,
+      "DiaLlegada": 2,
+      "CompraKg": 30,
+      "DemandaKg": 40.0,
+      "VentaKg": 39.0,
+      "FaltanteKg": 1.0,
+      "MermaPotencialKg": 6.0,
+      "DiasFaltante": 1,
+      "FinalKg": 0.0
+    },
+    {
+      "Escenario": "Demanda mas 50 por ciento",
+      "DemandaDiariaKg": 12,
+      "DiaLlegada": 2,
+      "CompraKg": 30,
+      "DemandaKg": 60.0,
+      "VentaKg": 45.0,
+      "FaltanteKg": 15.0,
+      "MermaPotencialKg": 0.0,
+      "DiasFaltante": 2,
+      "FinalKg": 0.0
+    },
+    {
+      "Escenario": "Proveedor dos dias tarde",
+      "DemandaDiariaKg": 8,
+      "DiaLlegada": 4,
+      "CompraKg": 30,
+      "DemandaKg": 40.0,
+      "VentaKg": 23.0,
+      "FaltanteKg": 17.0,
+      "MermaPotencialKg": 22.0,
+      "DiasFaltante": 3,
+      "FinalKg": 0.0
+    },
+    {
+      "Escenario": "Compra adicional de 20 kg",
+      "DemandaDiariaKg": 8,
+      "DiaLlegada": 2,
+      "CompraKg": 50,
+      "DemandaKg": 40.0,
+      "VentaKg": 39.0,
+      "FaltanteKg": 1.0,
+      "MermaPotencialKg": 26.0,
+      "DiasFaltante": 1,
+      "FinalKg": 0.0
+    },
+    {
+      "Escenario": "Compra menor de 10 kg",
+      "DemandaDiariaKg": 8,
+      "DiaLlegada": 2,
+      "CompraKg": 20,
+      "DemandaKg": 40.0,
+      "VentaKg": 35.0,
+      "FaltanteKg": 5.0,
+      "MermaPotencialKg": 0.0,
+      "DiasFaltante": 2,
+      "FinalKg": 0.0
+    },
+    {
+      "Escenario": "Alternativa anticipada",
+      "DemandaDiariaKg": 8,
+      "DiaLlegada": 1,
+      "CompraKg": 25,
+      "DemandaKg": 40.0,
+      "VentaKg": 40.0,
+      "FaltanteKg": 0.0,
+      "MermaPotencialKg": 0.0,
+      "DiasFaltante": 0,
+      "FinalKg": 0.0
+    }
+  ],
+  "cut": "2026-10-08T18:00:00-05:00"
+}

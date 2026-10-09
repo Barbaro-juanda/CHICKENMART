@@ -1,0 +1,23 @@
+// Funcion fnCSV. Crear una consulta en blanco con este contenido.
+(ruta as text) as table =>
+let
+  Fuente = Csv.Document(File.Contents(ruta), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+  Encabezados = Table.PromoteHeaders(Fuente, [PromoteAllScalars=true])
+in Encabezados
+
+// Crear parametro Carpeta con la ruta absoluta a respaldo y separador final.
+// Crear cuatro consultas independientes. Ejemplo Movimientos:
+let
+  Fuente = fnCSV(Carpeta & "Movimientos.csv"),
+  Tipos = Table.TransformColumnTypes(Fuente, {{"EventoID", type text},{"LoteID",type text},{"Tipo",type text},{"DeltaFisicoKg",type number},{"DeltaReservaKg",type number},{"DeltaBloqueadoKg",type number},{"PedidoID",type text},{"FechaHora",type datetimezone},{"ActualizadoEn",type datetimezone}}, "en-US"),
+  Identificadores = Table.TransformColumns(Tipos, {{"EventoID", Text.Trim, type text},{"LoteID", Text.Trim, type text}}),
+  // Convertir explicitamente a hora Colombia, luego quitar zona para Power BI.
+  Fechas = Table.TransformColumns(Identificadores, {{"FechaHora", each DateTimeZone.RemoveZone(DateTimeZone.SwitchZone(_, -5)), type datetime},{"ActualizadoEn", each DateTimeZone.RemoveZone(DateTimeZone.SwitchZone(_, -5)), type datetime}})
+in Fechas
+
+// Productos: SKU, Producto, Unidad como texto.
+// Lotes: LoteID, SKU, Proveedor texto; Vencimiento fecha (en-US ISO yyyy-MM-dd).
+// Pedidos: PedidoID, LoteID, Canal, Estado texto; SolicitadoKg,
+// ReservaVigenteKg, VendidoKg numero; Fecha fecha.
+// No eliminar duplicados silenciosamente: revisar IDs repetidos y rechazar
+// el lote de carga si tienen contenido diferente. El Data Hub aplica PK.

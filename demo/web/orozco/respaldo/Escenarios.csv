@@ -1,0 +1,7 @@
+﻿Escenario,DemandaDiariaKg,DiaLlegada,CompraKg,DemandaKg,VentaKg,FaltanteKg,MermaPotencialKg,DiasFaltante,FinalKg
+Base,8,2,30,40.0,39.0,1.0,6.0,1,0.0
+Demanda mas 50 por ciento,12,2,30,60.0,45.0,15.0,0.0,2,0.0
+Proveedor dos dias tarde,8,4,30,40.0,23.0,17.0,22.0,3,0.0
+Compra adicional de 20 kg,8,2,50,40.0,39.0,1.0,26.0,1,0.0
+Compra menor de 10 kg,8,2,20,40.0,35.0,5.0,0.0,2,0.0
+Alternativa anticipada,8,1,25,40.0,40.0,0.0,0.0,0,0.0

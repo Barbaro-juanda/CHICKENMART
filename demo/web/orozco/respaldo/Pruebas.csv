@@ -1,0 +1,65 @@
+﻿Prueba,Esperado,Observado,Estado
+Saldo fisico total,43,43,PASA
+Reserva total,7,7,PASA
+Disponible total,34,34,PASA
+Reserva frente a pedidos,7,7,PASA
+Ventas frente a pedidos,11,11,PASA
+Estado consistente E001,True,True,PASA
+Estado consistente E004,True,True,PASA
+Estado consistente E005,True,True,PASA
+Estado consistente E010,True,True,PASA
+Estado consistente E016,True,True,PASA
+Estado consistente E002,True,True,PASA
+Estado consistente E006,True,True,PASA
+Estado consistente E007,True,True,PASA
+Estado consistente E011,True,True,PASA
+Estado consistente E013,True,True,PASA
+Estado consistente E014,True,True,PASA
+Estado consistente E003,True,True,PASA
+Estado consistente E008,True,True,PASA
+Estado consistente E009,True,True,PASA
+Estado consistente E012,True,True,PASA
+Estado consistente E015,True,True,PASA
+Estado consistente E017,True,True,PASA
+Claves externas validas,[],[],PASA
+Saldo SQL frente a muestra,34,34.0,PASA
+Recepcion repetida por ID,rechazado,rechazado,PASA
+Duplicado no aumenta stock,43,43.0,PASA
+Base faltante y merma,"(1, 6)","(1.0, 6.0)",PASA
+Demanda mas 50 por ciento faltante y merma,"(15, 0)","(15.0, 0.0)",PASA
+Proveedor dos dias tarde faltante y merma,"(17, 22)","(17.0, 22.0)",PASA
+Compra adicional de 20 kg faltante y merma,"(1, 26)","(1.0, 26.0)",PASA
+Compra menor de 10 kg faltante y merma,"(5, 0)","(5.0, 0.0)",PASA
+Alternativa anticipada faltante y merma,"(0, 0)","(0.0, 0.0)",PASA
+Balance Base D0,0.0,0.0,PASA
+Balance Base D1,0.0,0.0,PASA
+Balance Base D2,0.0,0.0,PASA
+Balance Base D3,0.0,0.0,PASA
+Balance Base D4,0.0,0.0,PASA
+Balance Demanda mas 50 por ciento D0,0.0,0.0,PASA
+Balance Demanda mas 50 por ciento D1,0.0,0.0,PASA
+Balance Demanda mas 50 por ciento D2,0.0,0.0,PASA
+Balance Demanda mas 50 por ciento D3,0.0,0.0,PASA
+Balance Demanda mas 50 por ciento D4,0.0,0.0,PASA
+Balance Proveedor dos dias tarde D0,0.0,0.0,PASA
+Balance Proveedor dos dias tarde D1,0.0,0.0,PASA
+Balance Proveedor dos dias tarde D2,0.0,0.0,PASA
+Balance Proveedor dos dias tarde D3,0.0,0.0,PASA
+Balance Proveedor dos dias tarde D4,0.0,0.0,PASA
+Balance Compra adicional de 20 kg D0,0.0,0.0,PASA
+Balance Compra adicional de 20 kg D1,0.0,0.0,PASA
+Balance Compra adicional de 20 kg D2,0.0,0.0,PASA
+Balance Compra adicional de 20 kg D3,0.0,0.0,PASA
+Balance Compra adicional de 20 kg D4,0.0,0.0,PASA
+Balance Compra menor de 10 kg D0,0.0,0.0,PASA
+Balance Compra menor de 10 kg D1,0.0,0.0,PASA
+Balance Compra menor de 10 kg D2,0.0,0.0,PASA
+Balance Compra menor de 10 kg D3,0.0,0.0,PASA
+Balance Compra menor de 10 kg D4,0.0,0.0,PASA
+Balance Alternativa anticipada D0,0.0,0.0,PASA
+Balance Alternativa anticipada D1,0.0,0.0,PASA
+Balance Alternativa anticipada D2,0.0,0.0,PASA
+Balance Alternativa anticipada D3,0.0,0.0,PASA
+Balance Alternativa anticipada D4,0.0,0.0,PASA
+Despacho no duplica descuento,"(15, 15)","(15, 15)",PASA
+Cancelar no aumenta fisico,"(20, 19)","(20, 19)",PASA

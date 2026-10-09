@@ -1,0 +1,9 @@
+﻿PedidoID,LoteID,Canal,Estado,SolicitadoKg,ReservaVigenteKg,VendidoKg,Fecha
+O001,L001,WhatsApp,Despachado,5,0,5,2026-10-08
+O002,L002,Punto,Despachado,4,0,4,2026-10-08
+O003,L003,Web,Despachado,2,0,2,2026-10-08
+O004,L001,Web,Reservado,4,4,0,2026-10-08
+O005,L002,WhatsApp,Reservado,2,2,0,2026-10-08
+O006,L003,Punto,Reservado,1,1,0,2026-10-08
+O007,L002,Web,Cancelado,3,0,0,2026-10-08
+O008,L001,WhatsApp,Rechazado por stock,18,0,0,2026-10-08

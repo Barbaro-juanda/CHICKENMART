@@ -1,0 +1,4 @@
+﻿LoteID,SKU,Proveedor,Vencimiento,FisicoKg,ReservadoKg,BloqueadoKg,DisponibleKg,ActualizadoEn
+L001,P001,Proveedor ficticio A,2026-10-11,20,4,1,15,2026-10-08T18:00:00-05:00
+L002,P002,Proveedor ficticio A,2026-10-10,14,2,0,12,2026-10-08T18:00:00-05:00
+L003,P003,Proveedor ficticio B,2026-10-09,9,1,1,7,2026-10-08T18:00:00-05:00

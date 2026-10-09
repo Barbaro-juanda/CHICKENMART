@@ -1,0 +1,390 @@
+{
+  "fecha": "2026-10-08T18:00:00-05:00",
+  "pruebas": [
+    {
+      "Prueba": "Saldo fisico total",
+      "Esperado": "43",
+      "Observado": "43",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Reserva total",
+      "Esperado": "7",
+      "Observado": "7",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Disponible total",
+      "Esperado": "34",
+      "Observado": "34",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Reserva frente a pedidos",
+      "Esperado": "7",
+      "Observado": "7",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Ventas frente a pedidos",
+      "Esperado": "11",
+      "Observado": "11",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E001",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E004",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E005",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E010",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E016",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E002",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E006",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E007",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E011",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E013",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E014",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E003",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E008",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E009",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E012",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E015",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Estado consistente E017",
+      "Esperado": "True",
+      "Observado": "True",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Claves externas validas",
+      "Esperado": "[]",
+      "Observado": "[]",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Saldo SQL frente a muestra",
+      "Esperado": "34",
+      "Observado": "34.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Recepcion repetida por ID",
+      "Esperado": "rechazado",
+      "Observado": "rechazado",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Duplicado no aumenta stock",
+      "Esperado": "43",
+      "Observado": "43.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Base faltante y merma",
+      "Esperado": "(1, 6)",
+      "Observado": "(1.0, 6.0)",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Demanda mas 50 por ciento faltante y merma",
+      "Esperado": "(15, 0)",
+      "Observado": "(15.0, 0.0)",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Proveedor dos dias tarde faltante y merma",
+      "Esperado": "(17, 22)",
+      "Observado": "(17.0, 22.0)",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Compra adicional de 20 kg faltante y merma",
+      "Esperado": "(1, 26)",
+      "Observado": "(1.0, 26.0)",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Compra menor de 10 kg faltante y merma",
+      "Esperado": "(5, 0)",
+      "Observado": "(5.0, 0.0)",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Alternativa anticipada faltante y merma",
+      "Esperado": "(0, 0)",
+      "Observado": "(0.0, 0.0)",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Base D0",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Base D1",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Base D2",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Base D3",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Base D4",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Demanda mas 50 por ciento D0",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Demanda mas 50 por ciento D1",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Demanda mas 50 por ciento D2",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Demanda mas 50 por ciento D3",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Demanda mas 50 por ciento D4",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Proveedor dos dias tarde D0",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Proveedor dos dias tarde D1",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Proveedor dos dias tarde D2",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Proveedor dos dias tarde D3",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Proveedor dos dias tarde D4",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Compra adicional de 20 kg D0",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Compra adicional de 20 kg D1",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Compra adicional de 20 kg D2",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Compra adicional de 20 kg D3",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Compra adicional de 20 kg D4",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Compra menor de 10 kg D0",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Compra menor de 10 kg D1",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Compra menor de 10 kg D2",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Compra menor de 10 kg D3",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Compra menor de 10 kg D4",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Alternativa anticipada D0",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Alternativa anticipada D1",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Alternativa anticipada D2",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Alternativa anticipada D3",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Balance Alternativa anticipada D4",
+      "Esperado": "0.0",
+      "Observado": "0.0",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Despacho no duplica descuento",
+      "Esperado": "(15, 15)",
+      "Observado": "(15, 15)",
+      "Estado": "PASA"
+    },
+    {
+      "Prueba": "Cancelar no aumenta fisico",
+      "Esperado": "(20, 19)",
+      "Observado": "(20, 19)",
+      "Estado": "PASA"
+    }
+  ],
+  "limite": "Pruebas de Python y SQLite. DAX y Power Query pendientes de ejecucion en Power BI."
+}

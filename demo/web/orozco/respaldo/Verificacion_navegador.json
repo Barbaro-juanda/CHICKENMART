@@ -1,0 +1,69 @@
+{
+  "checks": [
+    {
+      "prueba": "sin errores iniciales",
+      "pasa": true
+    },
+    {
+      "prueba": "inventario inicial",
+      "pasa": true
+    },
+    {
+      "prueba": "filtro de producto",
+      "pasa": true
+    },
+    {
+      "prueba": "simulacion base",
+      "pasa": true
+    },
+    {
+      "prueba": "demanda modificada",
+      "pasa": true
+    },
+    {
+      "prueba": "proveedor retrasado",
+      "pasa": true
+    },
+    {
+      "prueba": "compra adicional",
+      "pasa": true
+    },
+    {
+      "prueba": "alternativa anticipada",
+      "pasa": true
+    },
+    {
+      "prueba": "validacion de entrada",
+      "pasa": true
+    },
+    {
+      "prueba": "resultado JS Base",
+      "pasa": true
+    },
+    {
+      "prueba": "resultado JS Demanda mas 50 por ciento",
+      "pasa": true
+    },
+    {
+      "prueba": "resultado JS Proveedor dos dias tarde",
+      "pasa": true
+    },
+    {
+      "prueba": "resultado JS Compra adicional de 20 kg",
+      "pasa": true
+    },
+    {
+      "prueba": "resultado JS Compra menor de 10 kg",
+      "pasa": true
+    },
+    {
+      "prueba": "resultado JS Alternativa anticipada",
+      "pasa": true
+    },
+    {
+      "prueba": "sin errores finales",
+      "pasa": true
+    }
+  ],
+  "errors": []
+}
